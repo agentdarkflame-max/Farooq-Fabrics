@@ -9,21 +9,28 @@
 html{scroll-behavior:smooth}
 body{font-family:'Plus Jakarta Sans',system-ui,sans-serif;color:var(--t);background:#fff;line-height:1.5;overflow-x:hidden}
 button,input,select,textarea{font:inherit}
-button{cursor:pointer;border:0;border-radius:10px;padding:10px 14px;background:var(--gl);color:var(--gd);transition:.2s}
+button{cursor:pointer;border:0;border-radius:10px;padding:10px 14px;background:var(--gl);color:var(--gd);transition:.2s;display:inline-flex;align-items:center;justify-content:center;gap:6px}
 button:hover{transform:translateY(-2px)}
 button:active{transform:scale(.96)}
+svg{display:block;flex:none}
 .p{background:var(--g);color:#fff;font-weight:700;box-shadow:0 6px 16px color-mix(in srgb,var(--g) 35%,transparent)}
 .p:hover{background:var(--gd)}
+.ghost{background:rgba(255,255,255,.18);color:#fff}
 input,select,textarea{width:100%;padding:12px;border:1.5px solid #d6e6dd;border-radius:10px;margin:4px 0 10px;background:#fff;transition:.2s}
 input:focus,select:focus,textarea:focus{outline:0;border-color:var(--g);box-shadow:0 0 0 3px var(--gl)}
 .bar{background:var(--gd);color:#fff;font-size:12px;font-weight:600;overflow:hidden;white-space:nowrap}
 .bar span{display:inline-block;padding:7px 0;animation:mq 26s linear infinite}
 @keyframes mq{from{transform:translateX(100vw)}to{transform:translateX(-100%)}}
-header{position:sticky;top:0;z-index:20;background:rgba(255,255,255,.93);backdrop-filter:blur(10px);box-shadow:0 2px 14px rgba(0,0,0,.06);padding:8px 10px;display:flex;align-items:center;justify-content:space-between}
-header button{background:none;font-size:20px;padding:6px 8px;position:relative;color:var(--t)}
-.logo{font-size:19px;font-weight:800;letter-spacing:2px;color:var(--g);cursor:pointer}
-.bd{position:absolute;top:-2px;right:-2px;background:var(--g);color:#fff;font-size:10px;border-radius:10px;padding:1px 6px;animation:pop .4s}
+header{position:sticky;top:0;z-index:20;background:rgba(255,255,255,.95);backdrop-filter:blur(10px);box-shadow:0 2px 14px rgba(0,0,0,.06);padding:8px 12px 10px}
+.hr{display:flex;align-items:center;gap:2px}
+header .hr button{background:none;padding:8px;position:relative;color:var(--t)}
+.logo{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:clamp(15px,4.8vw,21px);font-weight:800;letter-spacing:2px;color:var(--g);cursor:pointer;padding-left:4px}
+.bd{position:absolute;top:0;right:0;background:var(--g);color:#fff;font-size:10px;font-weight:700;border-radius:10px;padding:1px 6px;animation:pop .4s}
 @keyframes pop{50%{transform:scale(1.6)}}
+.sb{display:flex;align-items:center;gap:8px;background:var(--gl);border-radius:30px;padding:0 16px;margin-top:6px;border:1.5px solid transparent;color:var(--g);transition:.2s}
+.sb:focus-within{border-color:var(--g);background:#fff;box-shadow:0 0 0 3px var(--gl)}
+.sb input{border:0;background:none;margin:0;padding:11px 0;box-shadow:none;color:var(--t)}
+.sb input:focus{border:0;box-shadow:none}
 .hero{position:relative;overflow:hidden;min-height:78vh;display:flex;flex-direction:column;justify-content:center;padding:40px 20px;color:#fff;text-align:center;background:linear-gradient(135deg,var(--gd),var(--g),#27c47a,var(--gd));background-size:300% 300%;animation:gs 12s ease infinite}
 .hero>*:not(.blob){position:relative;animation:up .9s both}
 .hero h1{font-size:42px;line-height:1.08;margin-bottom:12px;font-weight:800}
@@ -46,8 +53,8 @@ h2:after{content:"";position:absolute;left:0;bottom:0;width:44px;height:4px;bord
 .tile{height:140px;border-radius:16px;color:#fff;display:flex;align-items:flex-end;padding:14px;font-size:20px;font-weight:800;cursor:pointer;background:linear-gradient(160deg,var(--gd),var(--g));transition:.3s}
 .tile:nth-child(even){background:linear-gradient(160deg,var(--g),#5fd69b)}
 .tile:hover{transform:translateY(-6px) rotate(-1deg);box-shadow:0 14px 24px rgba(0,0,0,.18)}
-.feat div{background:var(--gl);border-radius:16px;padding:18px;text-align:center;font-size:14px;transition:.3s}
-.feat div:hover{transform:translateY(-4px)}
+.feat div.rv{background:var(--gl);border-radius:16px;padding:18px;text-align:center;font-size:14px}
+.fi{width:52px;height:52px;border-radius:50%;background:#fff;color:var(--g);display:flex;align-items:center;justify-content:center;margin:0 auto 8px;box-shadow:0 4px 12px rgba(11,138,79,.15)}
 .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
 .pd{display:grid;grid-template-columns:1fr;gap:20px}
 @media(min-width:700px){.grid,.tiles,.feat{grid-template-columns:repeat(4,1fr)}.hero h1{font-size:60px}.pd{grid-template-columns:1fr 1fr}}
@@ -61,10 +68,12 @@ h2:after{content:"";position:absolute;left:0;bottom:0;width:44px;height:4px;bord
 .im img{transition:transform .5s}
 .card:hover .im img,.big:hover img{transform:scale(1.08)}
 .im img,.ph{width:100%;aspect-ratio:3/4;object-fit:cover;display:block}
-.ph{display:flex;align-items:center;justify-content:center;font-size:50px;background:var(--gl)}
+.ph{display:flex;align-items:center;justify-content:center;background:var(--gl);color:var(--g)}
+.ph svg{opacity:.45}
 .i{padding:12px}
-.st{color:#f5a623;letter-spacing:1px}
-.hrt{position:absolute;top:8px;right:8px;z-index:2;background:#fff;border-radius:50%;width:36px;height:36px;padding:0;font-size:18px;color:#e0245e;box-shadow:0 2px 8px rgba(0,0,0,.15)}
+.st{display:inline-flex;align-items:center;gap:2px;color:#f5a623}
+.st small{color:#667;margin-left:4px}
+.hrt{position:absolute;top:8px;right:8px;z-index:2;background:#fff;border-radius:50%;width:36px;height:36px;padding:0;color:#e0245e;box-shadow:0 2px 8px rgba(0,0,0,.15)}
 .tg{position:absolute;top:8px;left:8px;z-index:2;background:#e0245e;color:#fff;font-size:11px;font-weight:700;padding:3px 9px;border-radius:20px}
 .old{text-decoration:line-through;color:#999;font-size:13px;margin-left:6px}
 .pill{background:var(--gl);color:var(--gd);font-size:12px;font-weight:700;padding:2px 8px;border-radius:20px}
@@ -72,7 +81,7 @@ h2:after{content:"";position:absolute;left:0;bottom:0;width:44px;height:4px;bord
 @keyframes sh{to{background-position:-200% 0}}
 .box{background:#fff;border:1px solid #e3efe8;border-radius:16px;padding:14px;margin-bottom:12px}
 .chip.on,.opt .on{background:var(--g);color:#fff}
-.stp button{font-size:24px;padding:2px 8px;background:none;color:#ccc}
+.stp button{padding:2px 4px;background:none;color:#ccc}
 .stp .on{color:#f5a623}
 .big{border-radius:16px;overflow:hidden}
 .th{width:68px;height:84px;flex:0 0 68px;border-radius:10px;overflow:hidden;cursor:pointer;border:2px solid transparent;transition:.2s}
@@ -90,9 +99,9 @@ h2:after{content:"";position:absolute;left:0;bottom:0;width:44px;height:4px;bord
 .dr h4{padding:14px 18px 6px;font-size:11px;letter-spacing:1.5px;color:#7a8f83;text-transform:uppercase}
 .dr a{display:block;padding:13px 18px;border-bottom:1px solid #eef5f0;cursor:pointer;transition:.2s}
 .dr a:hover{background:var(--gl);padding-left:26px}
-.wa{position:fixed;right:14px;bottom:14px;z-index:30;background:#25d366;color:#fff;width:54px;height:54px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:26px;text-decoration:none;box-shadow:0 4px 12px rgba(0,0,0,.3);animation:pop 1.2s 1s}
+.wa{position:fixed;right:14px;bottom:14px;z-index:30;background:#25d366;color:#fff;width:54px;height:54px;border-radius:50%;display:flex;align-items:center;justify-content:center;text-decoration:none;box-shadow:0 4px 12px rgba(0,0,0,.3);animation:pop 1.2s 1s}
 .top{position:fixed;left:14px;bottom:14px;z-index:30;width:44px;height:44px;border-radius:50%;background:var(--g);color:#fff;padding:0}
-.lk{display:inline-block;padding:10px 14px;border-radius:10px;background:var(--gl);color:var(--gd);text-decoration:none}
+.lk{display:inline-flex;align-items:center;gap:6px;padding:10px 14px;border-radius:10px;background:var(--gl);color:var(--gd);text-decoration:none}
 .toast{position:fixed;left:50%;bottom:90px;transform:translateX(-50%);background:var(--gd);color:#fff;padding:12px 20px;border-radius:30px;z-index:99;animation:ts 2.3s both}
 @keyframes ts{0%{opacity:0;transform:translate(-50%,20px)}12%,85%{opacity:1;transform:translate(-50%,0)}100%{opacity:0}}
 .bar2{height:8px;background:var(--gl);border-radius:8px;overflow:hidden}
@@ -108,8 +117,8 @@ import {getFirestore,collection,doc,getDoc,setDoc,addDoc,getDocs,updateDoc,delet
 // config: defaults for the whole site, the owner can change most of these in Dashboard > settings
 const CONFIG={
   brand:"FAROOQ FABRICS",
-  tagline:"Pakistani style. Fresh green energy.",
-  sub:"Shalwar kameez, kurtas, lawn and more, delivered across Pakistan.",
+  tagline:"Wear the moment. Own the day.",
+  sub:"Handpicked styles, premium fabrics and a fit that feels made for you.",
   promo:"Free delivery over Rs 5,000  •  Cash on delivery  •  7-day easy exchange  •  New arrivals every week",
   categories:"New arrivals,Men,Women,Kids,Sale,Shalwar Kameez,Kurta,Lawn,Waistcoat,Sherwani,Unstitched",
   color:"#0b8a4f",currency:"Rs ",freeShip:5000,shipFee:200,code:"",pct:0,
@@ -117,10 +126,34 @@ const CONFIG={
 };
 // info pages text, edit it however you like
 const INFO={
-  about:["About us","We make Pakistani clothing with good fabric and careful stitching: shalwar kameez, kurtas, lawn and more."],
-  ship:["Shipping and returns","Delivery takes 3 to 7 working days across Pakistan. Exchange within 7 days if unworn with tags."],
+  about:["About us","We make everyday and festive wear with good fabric and careful stitching: shalwar kameez, kurtas, lawn and more."],
+  ship:["Shipping and returns","Delivery takes 3 to 7 working days. Exchange within 7 days if unworn with tags."],
   faq:["FAQ","How do I pay? Cash on delivery, EasyPaisa, bank transfer, card or PayPal.\n\nHow do I pick a size? Choose it on the product page.\n\nCan I exchange? Yes, within 7 days."]
 };
+
+// custom icons, all drawn as svg so they take the site color
+const P={
+  menu:'<path d="M4 7h16M4 12h16M4 17h10"/>',
+  close:'<path d="M6 6l12 12M18 6L6 18"/>',
+  search:'<circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/>',
+  heart:'<path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>',
+  cart:'<circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>',
+  user:'<path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>',
+  truck:'<rect x="1" y="3" width="15" height="13"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/>',
+  cash:'<rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="12" cy="12" r="3"/>',
+  sync:'<path d="M23 4v6h-6M1 20v-6h6"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/>',
+  award:'<circle cx="12" cy="8" r="7"/><path d="M8.21 13.89L7 23l5-3 5 3-1.21-9.12"/>',
+  up:'<path d="M12 19V5M5 12l7-7 7 7"/>',
+  left:'<path d="M19 12H5M12 19l-7-7 7-7"/>',
+  chat:'<path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>',
+  shirt:'<path d="M8 3l-5 3 2 4 3-1v12h8V9l3 1 2-4-5-3a4 4 0 0 1-8 0z"/>',
+  trend:'<path d="M23 6l-9.5 9.5-5-5L1 18"/><path d="M17 6h6v6"/>',
+  check:'<circle cx="12" cy="12" r="9"/><path d="M8 12l3 3 5-6"/>',
+  share:'<circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.59 13.51l6.83 3.98M15.41 6.51l-6.82 3.98"/>',
+  star:'<polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>'
+};
+const ic=(n,s=22,f=false)=>`<svg viewBox="0 0 24 24" width="${s}" height="${s}" fill="${f?"currentColor":"none"}" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">${P[n]}</svg>`;
+window.ph=()=>{const d=document.createElement("div");d.className="ph";d.innerHTML=ic("shirt",54);return d};
 
 const $=s=>document.querySelector(s);
 const E=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
@@ -137,7 +170,7 @@ const isStaff=()=>role=="owner"||role=="admin";
 const imgs=p=>String(p.image||"").split(",").map(s=>s.trim()).filter(Boolean);
 const sizes=p=>String(p.sizes||"One size").split(",").map(s=>s.trim());
 const out=p=>p.stock!=null&&p.stock<=0;
-const stars=a=>"★".repeat(Math.round(a))+"☆".repeat(5-Math.round(a));
+const stars=a=>[1,2,3,4,5].map(i=>ic("star",15,i<=Math.round(a))).join("");
 const rate=id=>{const l=reviews.filter(x=>x.pid==id);return{n:l.length,avg:l.length?l.reduce((a,x)=>a+x.stars,0)/l.length:0,list:l.sort((a,b)=>b.created-a.created)}};
 const totals=()=>{
   const sub=cart.reduce((a,c)=>a+c.price*c.qty,0),disc=applied?Math.round(sub*S("pct")/100):0;
@@ -177,85 +210,89 @@ if(db)onAuthStateChanged(auth,async u=>{
 });
 
 function list(){
+  const k=q.toLowerCase().trim();
   const l=products.filter(p=>{
     if(cat=="All"||cat=="New arrivals")return true;
     if(cat=="Sale")return p.old>p.price;
     if(cat=="Saved")return wish.includes(p.id);
     return String(p.cat||"").toLowerCase().split(",").map(s=>s.trim()).includes(cat.toLowerCase());
-  }).filter(p=>String(p.name||"").toLowerCase().includes(q));
+  }).filter(p=>String(p.name||"").toLowerCase().includes(k));
   if(sort=="low")l.sort((a,b)=>a.price-b.price);
   else if(sort=="high")l.sort((a,b)=>b.price-a.price);
   else if(sort=="best")l.sort((a,b)=>(b.sold||0)-(a.sold||0));
   else l.sort((a,b)=>(b.created||0)-(a.created||0));
   return l;
 }
-const pic=(p,i=0)=>imgs(p)[i]?`<img src="${safe(imgs(p)[i])}" loading="lazy" alt="${E(p.name)}" onerror="this.outerHTML='<div class=ph>👗</div>'">`:`<div class="ph">👗</div>`;
+const pic=(p,i=0)=>imgs(p)[i]?`<img src="${safe(imgs(p)[i])}" loading="lazy" alt="${E(p.name)}" onerror="this.replaceWith(ph())">`:`<div class="ph">${ic("shirt",54)}</div>`;
 function card(p){
   const r=rate(p.id);
   return `<div class="card rv" data-a="open" data-id="${p.id}">${p.old>p.price?'<span class="tg">SALE</span>':""}${out(p)?'<span class="tg" style="background:#555;top:36px">SOLD OUT</span>':""}
-  <button class="hrt" data-a="wish" data-id="${p.id}">${wish.includes(p.id)?"♥":"♡"}</button><div class="im">${pic(p)}</div>
-  <div class="i"><b>${E(p.name)}</b><div class="st">${r.n?stars(r.avg)+` <small>(${r.n})</small>`:"<small>No reviews yet</small>"}</div>
+  <button class="hrt" data-a="wish" data-id="${p.id}">${ic("heart",18,wish.includes(p.id))}</button><div class="im">${pic(p)}</div>
+  <div class="i"><b>${E(p.name)}</b><br><div class="st">${r.n?stars(r.avg)+`<small>(${r.n})</small>`:"<small>No reviews yet</small>"}</div><br>
   <b style="color:var(--g)">${M(p.price)}</b>${p.old>p.price?`<span class="old">${M(p.old)}</span>`:""}${p.sold?`<br><small>${p.sold} sold</small>`:""}</div></div>`;
 }
 const sk=()=>Array(6).fill('<div class="card sk"></div>').join("");
 
 function head(){
   const n=cart.reduce((a,c)=>a+c.qty,0);
-  return `<header><button data-a="menu">☰</button><span class="logo" data-a="go" data-v="home">${E(S("brand"))}</span><div class="row" style="gap:0">
-  <button data-a="search">🔍</button><button data-a="cat" data-c="Saved">♡</button>
-  <button data-a="go" data-v="cart">🛒${n?`<span class="bd">${n}</span>`:""}</button>
-  <button data-a="go" data-v="${user?"orders":"login"}">👤</button></div></header>`;
+  return `<header><div class="hr"><button data-a="menu" aria-label="Menu">${ic("menu",24)}</button><span class="logo" data-a="go" data-v="home">${E(S("brand"))}</span>
+  <button data-a="cat" data-c="Saved" aria-label="Saved items">${ic("heart",22)}</button>
+  <button data-a="go" data-v="cart" aria-label="Cart">${ic("cart",22)}${n?`<span class="bd">${n}</span>`:""}</button>
+  <button data-a="go" data-v="${user?"orders":"login"}" aria-label="Account">${ic("user",22)}</button></div>
+  <div class="sb">${ic("search",18)}<input id="q" type="search" placeholder="Search kurtas, lawn, shalwar kameez..." value="${E(q)}"></div></header>`;
 }
 function drawer(){
   const l=(t,a,x="")=>`<a data-a="${a}" ${x}>${t}</a>`;
   const c=n=>l(E(n),"cat",`data-c="${E(n)}"`);
   return `<div class="ov ${menu?"on":""}" data-a="mx"></div><div class="dr ${menu?"on":""}">
-  <div class="row sp" style="padding:14px 18px;background:var(--g);color:#fff"><b class="logo" style="color:#fff">${E(S("brand"))}</b><button data-a="mx" style="background:none;color:#fff">✕</button></div>
+  <div class="row sp" style="padding:14px 18px;background:var(--g);color:#fff"><b class="logo" style="color:#fff">${E(S("brand"))}</b><button data-a="mx" style="background:none;color:#fff;padding:6px">${ic("close",22)}</button></div>
   <h4>Shop</h4>${l("Home","go",'data-v="home"')}${c("All")}${cats().map(c).join("")}
-  <h4>My account</h4>${l("Saved items ♥","cat",'data-c="Saved"')}${user?l("My orders","go",'data-v="orders"')+(isStaff()?l("Owner dashboard","go",'data-v="admin"'):"")+l("Logout","out"):l("Login / Sign up","go",'data-v="login"')}
+  <h4>My account</h4>${l("Saved items","cat",'data-c="Saved"')}${user?l("My orders","go",'data-v="orders"')+(isStaff()?l("Owner dashboard","go",'data-v="admin"'):"")+l("Logout","out"):l("Login / Sign up","go",'data-v="login"')}
   <h4>Help</h4>${l("About us","go",'data-v="about"')}${l("Shipping and returns","go",'data-v="ship"')}${l("FAQ","go",'data-v="faq"')}${l("Contact us","go",'data-v="contact"')}</div>`;
 }
 function foot(){
-  return `<footer><div class="logo" style="font-size:22px;margin-bottom:8px;color:#fff">${E(S("brand"))}</div><div class="row" style="justify-content:center;margin-bottom:10px">${[["About","about"],["Shipping","ship"],["FAQ","faq"],["Contact","contact"]].map(([t,v])=>`<a data-a="go" data-v="${v}" style="cursor:pointer;text-decoration:underline">${t}</a>`).join("")}</div><div style="opacity:.8">COD • EasyPaisa • Bank • Card • PayPal</div></footer>`;
+  return `<footer><div class="logo" style="font-size:22px;margin-bottom:8px;color:#fff;flex:none">${E(S("brand"))}</div><div class="row" style="justify-content:center;margin-bottom:10px">${[["About","about"],["Shipping","ship"],["FAQ","faq"],["Contact","contact"]].map(([t,v])=>`<a data-a="go" data-v="${v}" style="cursor:pointer;text-decoration:underline">${t}</a>`).join("")}</div><div style="opacity:.8">COD • EasyPaisa • Bank • Card • PayPal</div></footer>`;
 }
 
 function home(){
   const best=[...products].sort((a,b)=>(b.sold||0)-(a.sold||0)).slice(0,10);
   const nw=[...products].sort((a,b)=>(b.created||0)-(a.created||0)).slice(0,10);
   const sold=products.reduce((a,p)=>a+(p.sold||0),0),rv=[...reviews].sort((a,b)=>b.created-a.created).slice(0,3);
+  const fe=[["truck","Free delivery","over "+M(S("freeShip"))],["cash","Cash on delivery","pay at your door"],["sync","Easy exchange","within 7 days"],["award","Quality stitching","premium fabric"]];
   return `<div class="hero"><i class="blob" style="width:220px;height:220px;left:-70px;top:8%"></i><i class="blob" style="width:160px;height:160px;right:-40px;bottom:12%;animation-delay:2s"></i>
-  <h1>${E(S("tagline"))}</h1><p style="animation-delay:.15s">${E(S("sub"))}</p><div style="animation-delay:.3s"><button class="p" style="padding:14px 28px" data-a="cat" data-c="All">Shop now</button></div>
+  <h1>${E(S("tagline"))}</h1><p style="animation-delay:.15s">${E(S("sub"))}</p>
+  <div class="row" style="justify-content:center;animation-delay:.3s"><button class="p" style="padding:14px 28px" data-a="cat" data-c="All">Shop now</button><button class="ghost" style="padding:14px 22px" data-a="cat" data-c="New arrivals">New arrivals</button></div>
   <div class="row" style="justify-content:center;gap:34px;margin-top:30px;animation-delay:.45s"><div><b class="cnt" style="font-size:28px" data-n="${sold}">0</b><br><small>pieces sold</small></div><div><b class="cnt" style="font-size:28px" data-n="${products.length}">0</b><br><small>designs</small></div></div></div>
   <main><section><h2>Shop by category</h2><div class="tiles">${cats().slice(1,5).map(c=>`<div class="tile rv" data-a="cat" data-c="${E(c)}">${E(c)}</div>`).join("")}</div></section>
   <section><h2>Best sellers</h2><div class="hs">${loaded?best.map(card).join("")||"<p>Products coming soon.</p>":sk()}</div></section>
   <section><h2>New arrivals</h2><div class="hs">${loaded?nw.map(card).join(""):sk()}</div></section>
-  <section class="feat"><div class="rv">🚚<br><b>Free delivery</b><br>over ${M(S("freeShip"))}</div><div class="rv">💵<br><b>Cash on delivery</b><br>pay at your door</div><div class="rv">🔄<br><b>Easy exchange</b><br>within 7 days</div><div class="rv">🧵<br><b>Quality stitching</b><br>premium fabric</div></section>
+  <section class="feat">${fe.map(([i,t,s])=>`<div class="rv"><div class="fi">${ic(i,26)}</div><b>${t}</b><br>${s}</div>`).join("")}</section>
   ${rv.length?`<section><h2>Loved by customers</h2>${rv.map(r=>`<div class="box rv"><span class="st">${stars(r.stars)}</span><br>${E(r.text||"")}<br><b>${E(r.name)}</b></div>`).join("")}</section>`:""}</main>`;
 }
 function shopView(){
   const all=["All",...cats(),"Saved"];
-  return `<main><h2>${E(cat)}</h2><input id="q" placeholder="Search clothes..." value="${E(q)}">
+  return `<main><h2>${E(cat)}</h2>
   <div class="sc">${all.map(c=>`<button class="chip ${c==cat?"on":""}" data-a="cat" data-c="${E(c)}">${E(c)}</button>`).join("")}</div>
   <div class="row sp" style="margin:10px 0"><span></span><select id="sort" style="width:auto;margin:0"><option value="">Newest</option><option value="best" ${sort=="best"?"selected":""}>Best selling</option><option value="low" ${sort=="low"?"selected":""}>Price: low to high</option><option value="high" ${sort=="high"?"selected":""}>Price: high to low</option></select></div>
-  <div class="grid" id="grid">${loaded?list().map(card).join("")||"<p>Nothing here yet.</p>":sk()}</div></main>`;
+  <div class="grid" id="grid">${loaded?list().map(card).join("")||"<p>Nothing found.</p>":sk()}</div></main>`;
 }
 function prod(){
   const p=products.find(x=>x.id==pid);if(!p)return `<main><p>Product not found.</p></main>`;
   const im=imgs(p),r=rate(p.id),first=x=>String(x.cat||"").split(",")[0].trim();
   const rel=products.filter(x=>x.id!=p.id&&first(x)==first(p)).slice(0,6);
   const w=wish.includes(p.id),wl=encodeURIComponent(p.name+" - "+location.href.split("#")[0]);
-  return `<main><button data-a="go" data-v="shop">← Back</button><br><br>
+  return `<main><button data-a="go" data-v="shop">${ic("left",18)} Back</button><br><br>
   <div class="pd"><div><div class="big">${pic(p,pimg)}</div>${im.length>1?`<div class="sc" style="margin-top:8px">${im.map((_,k)=>`<div class="th ${k==pimg?"on":""}" data-a="pimg" data-k="${k}">${pic(p,k)}</div>`).join("")}</div>`:""}</div>
   <div><h2 style="font-size:28px">${E(p.name)}</h2>
-  <div class="st" style="font-size:18px">${r.n?stars(r.avg)+` <small>${r.avg.toFixed(1)} (${r.n} reviews)</small>`:"<small>No reviews yet</small>"}</div>
+  <div class="st">${r.n?stars(r.avg)+`<small>${r.avg.toFixed(1)} (${r.n} reviews)</small>`:"<small>No reviews yet</small>"}</div>
   <p style="margin:8px 0"><b style="font-size:26px;color:var(--g)">${M(p.price)}</b>${p.old>p.price?`<span class="old">${M(p.old)}</span> <span class="pill">-${Math.round((1-p.price/p.old)*100)}%</span>`:""}</p>
-  <p><small>🔥 ${p.sold||0} sold${p.stock!=null?` • ${out(p)?"Sold out":p.stock+" left"}`:""}</small></p>
+  <p class="row" style="gap:6px;color:#667;font-size:14px">${ic("trend",16)} ${p.sold||0} sold${p.stock!=null?` • ${out(p)?"Sold out":p.stock+" left"}`:""}</p>
   <p style="margin:12px 0;white-space:pre-line">${E(p.desc||"No description yet.")}</p>
   <b>Size</b><div class="row opt" style="margin:6px 0 12px">${sizes(p).map(s=>`<button class="${s==psize?"on":""}" data-a="psz" data-s="${E(s)}">${E(s)}</button>`).join("")}</div>
   <div class="row" style="margin-bottom:12px"><button data-a="pq" data-n="-1">-</button><b id="qv">${pqty}</b><button data-a="pq" data-n="1">+</button></div>
   <button class="p" style="width:100%;padding:14px" data-a="padd" ${out(p)?"disabled":""}>${out(p)?"Sold out":"Add to cart"}</button>
-  <div class="row" style="margin-top:10px"><button data-a="wish" data-id="${p.id}">${w?"♥ Saved":"♡ Save"}</button><a class="lk" target="_blank" href="https://wa.me/?text=${wl}">Share</a></div></div></div>
-  <section style="margin-top:30px"><h2>Reviews</h2>${user?`<div class="box"><b>Rate this product</b><div class="stp">${[1,2,3,4,5].map(n=>`<button data-a="rs" data-n="${n}" class="${n<=rstar?"on":""}">★</button>`).join("")}</div>
+  <div class="row" style="margin-top:10px"><button data-a="wish" data-id="${p.id}">${ic("heart",18,w)} ${w?"Saved":"Save"}</button><a class="lk" target="_blank" href="https://wa.me/?text=${wl}">${ic("share",18)} Share</a></div></div></div>
+  <section style="margin-top:30px"><h2>Reviews</h2>${user?`<div class="box"><b>Rate this product</b><div class="stp">${[1,2,3,4,5].map(n=>`<button data-a="rs" data-n="${n}" class="${n<=rstar?"on":""}">${ic("star",28,true)}</button>`).join("")}</div>
   <textarea id="rt" placeholder="Write a short review (optional)"></textarea><button class="p" data-a="rpost">Post review</button></div>`:`<p class="note">Login to rate this product.</p>`}
   ${r.list.map(x=>`<div class="box"><b>${E(x.name)}</b> <span class="st">${stars(x.stars)}</span><br>${E(x.text||"")}<br><small>${new Date(x.created).toLocaleDateString()}</small>${isStaff()?` <button data-a="rdel" data-id="${x.id}">Delete</button>`:""}</div>`).join("")}</section>
   ${rel.length?`<section><h2>You may also like</h2><div class="hs">${rel.map(card).join("")}</div></section>`:""}</main>`;
@@ -279,8 +316,8 @@ function cartView(){
   if(!cart.length)return `<main><h2>Cart</h2><p>Your cart is empty.</p><br><button class="p" data-a="cat" data-c="All">Start shopping</button></main>`;
   const t=totals(),fs=Number(S("freeShip"));
   return `<main><h2>Cart</h2>${cart.map((c,i)=>`<div class="box row sp"><span>${E(c.name)} (${E(c.size)}) x${c.qty}<br><b>${M(c.price*c.qty)}</b></span>
-  <span><button data-a="qm" data-i="${i}">-</button> <button data-a="qp" data-i="${i}">+</button> <button data-a="rm" data-i="${i}">✕</button></span></div>`).join("")}
-  <div class="box"><small>${t.ship?`Add ${M(fs-(t.sub-t.disc))} more for free delivery`:"You got free delivery 🎉"}</small><div class="bar2"><i style="width:${fs?Math.min(100,(t.sub-t.disc)/fs*100):100}%"></i></div><br>
+  <span class="row"><button data-a="qm" data-i="${i}">-</button><button data-a="qp" data-i="${i}">+</button><button data-a="rm" data-i="${i}">${ic("close",16)}</button></span></div>`).join("")}
+  <div class="box">${t.ship?`<small>Add ${M(fs-(t.sub-t.disc))} more for free delivery</small>`:`<small class="row" style="gap:6px;color:var(--g)">${ic("check",16)} You got free delivery</small>`}<div class="bar2"><i style="width:${fs?Math.min(100,(t.sub-t.disc)/fs*100):100}%"></i></div><br>
   <div class="row"><input id="cc" placeholder="Promo code" style="flex:1;margin:0"><button data-a="code">Apply</button></div><br>
   <div class="row sp"><span>Subtotal</span><b>${M(t.sub)}</b></div>${t.disc?`<div class="row sp"><span>Discount</span><b>-${M(t.disc)}</b></div>`:""}
   <div class="row sp"><span>Delivery</span><b>${t.ship?M(t.ship):"Free"}</b></div><div class="row sp"><span>Total</span><b style="font-size:20px;color:var(--g)">${M(t.total)}</b></div></div>
@@ -292,11 +329,11 @@ function login(){
 }
 function contact(){
   const w=String(S("whatsapp")||"").replace(/\D/g,"");
-  return `<main><h2>Contact us</h2><div class="box"><p>Questions about an order or a size? Message us.</p><br>${w?`<a class="lk p" style="text-decoration:none" href="https://wa.me/${w}" target="_blank">Chat on WhatsApp</a>`:"<p>Contact details coming soon.</p>"}</div></main>`;
+  return `<main><h2>Contact us</h2><div class="box"><p>Questions about an order or a size? Message us.</p><br>${w?`<a class="lk p" style="color:#fff" href="https://wa.me/${w}" target="_blank">${ic("chat",18)} Chat on WhatsApp</a>`:"<p>Contact details coming soon.</p>"}</div></main>`;
 }
 const steps=["pending","paid","shipped"];
 function orderBox(o,adm){
-  const trk=o.status=="cancelled"?`<span class="tag">cancelled</span>`:steps.map((s,i)=>`<span class="tag ${i<=steps.indexOf(o.status)?"on":""}">${s}</span>`).join(" → ");
+  const trk=o.status=="cancelled"?`<span class="tag">cancelled</span>`:steps.map((s,i)=>`<span class="tag ${i<=steps.indexOf(o.status)?"on":""}">${s}</span>`).join(" › ");
   return `<div class="box"><div class="row sp"><b>${M(o.total)}</b><small>${new Date(o.created).toLocaleString()}</small></div><div style="margin:6px 0">${trk}</div>
   ${o.items.map(i=>`${E(i.name)} (${E(i.size)}) x${i.qty}`).join("<br>")}<br><small>${E(o.method)} | ref: ${E(o.ref||"-")}</small>
   ${adm?`<br><small>${E(o.name)} | ${E(o.phone)} | ${E(o.address)} | ${E(o.email)}</small><div class="row" style="margin-top:8px">
@@ -326,7 +363,7 @@ function admin(){
   if(tab=="stats")body=stats();
   if(tab=="products")body=`<div class="box"><h3>${edit?"Edit product":"Add clothing"}</h3>${inp("pn","Name",v.name)}${inp("pr","Selling price",v.price,"number")}${inp("po","Old price (optional, shows SALE)",v.old||"","number")}${inp("pc","Your cost (for profit)",v.cost||"","number")}${inp("pk","Stock count (empty = unlimited)",v.stock??"","number")}${inp("pt","Categories, e.g. Men, Kurta",v.cat)}${inp("pg","Image files or links, separate with commas",v.image)}${inp("ps","Sizes, e.g. S,M,L,XL",v.sizes)}<textarea id="pd" placeholder="Description">${E(v.desc)}</textarea>
     <small>Images: direct .jpg/.png links, or file names you uploaded to GitHub like suit1.jpg</small><br><br><div class="row"><button class="p" data-a="savep">${edit?"Save changes":"Add product"}</button>${edit?'<button data-a="cancel">Cancel</button>':""}</div></div>`
-    +products.map(p=>`<div class="box row sp"><span>${E(p.name)}<br><small>${M(p.price)} • ${p.sold||0} sold${p.stock!=null?` • ${p.stock} left`:""}</small></span><span><button data-a="edit" data-id="${p.id}">Edit</button> <button data-a="delp" data-id="${p.id}">Delete</button></span></div>`).join("");
+    +products.map(p=>`<div class="box row sp"><span>${E(p.name)}<br><small>${M(p.price)} • ${p.sold||0} sold${p.stock!=null?` • ${p.stock} left`:""}</small></span><span class="row"><button data-a="edit" data-id="${p.id}">Edit</button><button data-a="delp" data-id="${p.id}">Delete</button></span></div>`).join("");
   if(tab=="orders")body=`<div class="sc">${["all","pending","paid","shipped","cancelled"].map(s=>`<button class="chip ${s==ofil?"on":""}" data-a="of" data-s="${s}">${s}</button>`).join("")}</div>`+(orders.filter(o=>ofil=="all"||o.status==ofil).map(o=>orderBox(o,true)).join("")||"<p>No orders here.</p>");
   if(tab=="reviews")body=reviews.map(r=>`<div class="box"><b>${E(r.name)}</b> <span class="st">${stars(r.stars)}</span><br><small>${E((products.find(p=>p.id==r.pid)||{}).name||"")}</small><br>${E(r.text||"")}<br><button data-a="rdel" data-id="${r.id}">Delete</button></div>`).join("")||"<p>No reviews yet.</p>";
   if(tab=="settings"){
@@ -361,7 +398,7 @@ function render(){
   else if(INFO[view])body=`<main><h2>${E(INFO[view][0])}</h2><div class="box" style="white-space:pre-line">${E(INFO[view][1])}</div></main>`;
   else body=home();
   const w=String(S("whatsapp")||"").replace(/\D/g,"");
-  $("#app").innerHTML=`<div class="bar"><span>${E(S("promo"))}</span></div>`+head()+body+foot()+drawer()+(w?`<a class="wa" href="https://wa.me/${w}" target="_blank">💬</a>`:"")+`<button class="top" data-a="top">↑</button>`;
+  $("#app").innerHTML=`<div class="bar"><span>${E(S("promo"))}</span></div>`+head()+body+foot()+drawer()+(w?`<a class="wa" href="https://wa.me/${w}" target="_blank" aria-label="WhatsApp">${ic("chat",28)}</a>`:"")+`<button class="top" data-a="top" aria-label="Back to top">${ic("up",22)}</button>`;
   const pm=$("#pm");if(pm)$("#pi").innerHTML=payInfo(pm.value);
   after();
 }
@@ -394,7 +431,6 @@ document.addEventListener("click",async e=>{
     else if(a=="menu"){menu=true;render()}
     else if(a=="mx"){menu=false;render()}
     else if(a=="top")scrollTo({top:0,behavior:"smooth"});
-    else if(a=="search"){view="shop";cat="All";render();$("#q").focus()}
     else if(a=="open"){
       pid=d.id;pimg=0;pqty=1;const p=cur();psize=sizes(p)[0];
       const m=user&&reviews.find(x=>x.id==pid+"_"+user.uid);rstar=m?m.stars:5;
@@ -403,7 +439,7 @@ document.addEventListener("click",async e=>{
     else if(a=="wish"){
       const i=wish.indexOf(d.id);i<0?wish.push(d.id):wish.splice(i,1);
       try{localStorage.setItem("wish",JSON.stringify(wish))}catch(x){}
-      const w=wish.includes(d.id);b.textContent=b.classList.contains("hrt")?(w?"♥":"♡"):(w?"♥ Saved":"♡ Save");
+      const w=wish.includes(d.id);b.innerHTML=b.classList.contains("hrt")?ic("heart",18,w):ic("heart",18,w)+(w?" Saved":" Save");
     }
     else if(a=="pimg"){pimg=+d.k;$(".big").innerHTML=pic(cur(),pimg);document.querySelectorAll(".th").forEach((t,i)=>t.classList.toggle("on",i==pimg))}
     else if(a=="psz"){psize=d.s;document.querySelectorAll("[data-a=psz]").forEach(x=>x.classList.toggle("on",x==b))}
@@ -464,7 +500,12 @@ document.addEventListener("change",e=>{
   if(e.target.id=="sort"){sort=e.target.value;render()}
 });
 document.addEventListener("input",e=>{
-  if(e.target.id=="q"){q=e.target.value.toLowerCase();$("#grid").innerHTML=list().map(card).join("")||"<p>Nothing found.</p>";after()}
+  if(e.target.id!="q")return;
+  q=e.target.value;
+  if(view!="shop"){
+    view="shop";cat="All";render();scrollTo(0,0);
+    const i=$("#q");i.focus();i.setSelectionRange(i.value.length,i.value.length);
+  }else{$("#grid").innerHTML=list().map(card).join("")||"<p>Nothing found.</p>";after()}
 });
 render();
 </script>
