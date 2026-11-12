@@ -36,14 +36,14 @@ import {initializeApp} from "https://www.gstatic.com/firebasejs/10.12.2/firebase
 import {getAuth,onAuthStateChanged,createUserWithEmailAndPassword,signInWithEmailAndPassword,signOut} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 import {getFirestore,collection,doc,getDoc,setDoc,addDoc,getDocs,updateDoc,deleteDoc,query,where} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-// config: paste your firebase keys and change brand stuff here
+// config: brand stuff and firebase keys live here
 const CONFIG={
   brand:"FAROOQ FABRICS",
   tagline:"Style that fits you",
   main:"#111111",
   accent:"#d4a017",
   currency:"Rs ",
-  firebase:{apiKey:"",authDomain:"",projectId:"",appId:""}
+  firebase:{apiKey:"AIzaSyCsO78t-MlGlgk_z4J3A_ujQyxNXK94y4A",authDomain:"farooq-fabrics.firebaseapp.com",projectId:"farooq-fabrics",appId:"1:1021735432205:web:4d78324bde833dc232a544"}
 };
 
 const $=s=>document.querySelector(s);
@@ -163,7 +163,7 @@ function admin(){
   if(tab=="products")body=`<div class="box"><h3>Add clothing</h3><input id="pn" placeholder="Name"><input id="pr" type="number" placeholder="Selling price"><input id="pc" type="number" placeholder="Your cost (for profit)"><input id="pt" placeholder="Category, e.g. Men"><input id="pg" placeholder="Image link (https://...)"><input id="ps" placeholder="Sizes, e.g. S,M,L,XL"><button class="p" data-a="addp">Add product</button></div>`
     +products.map(p=>`<div class="box row sp"><span>${E(p.name)} - ${M(p.price)}</span><button data-a="delp" data-id="${p.id}">Delete</button></div>`).join("");
   if(tab=="orders")body=orders.map(o=>orderBox(o,true)).join("")||"<p>No orders yet.</p>";
-  if(tab=="settings")body=`<div class="box"><h3>Payment details</h3><input id="s1" placeholder="Card payment link (Stripe)" value="${E(settings.cardLink)}"><input id="s2" placeholder="PayPal link" value="${E(settings.paypalLink)}"><input id="s3" placeholder="EasyPaisa number and name" value="${E(settings.easypaisa)}"><input id="s4" placeholder="Bank name, account number, title" value="${E(settings.bank)}"><button class="p" data-a="save">Save</button></div>`;
+  if(tab=="settings")body=`<div class="box"><h3>Payment details</h3><input id="s1" placeholder="Card payment link" value="${E(settings.cardLink)}"><input id="s2" placeholder="PayPal link" value="${E(settings.paypalLink)}"><input id="s3" placeholder="EasyPaisa number and name" value="${E(settings.easypaisa)}"><input id="s4" placeholder="Bank name, account number, title" value="${E(settings.bank)}"><button class="p" data-a="save">Save</button></div>`;
   if(tab=="team")body=`<div class="box"><h3>Give or remove a role</h3><input id="te" type="email" placeholder="Their account email"><select id="tr"><option value="admin">Admin (manage products and orders)</option><option value="customer">Normal shopper</option></select><button class="p" data-a="role">Save role</button></div>`
     +team.map(u=>`<div class="box">${E(u.email)} <span class="tag">${E(u.role)}</span></div>`).join("");
   return `<main><div class="row" style="margin-bottom:12px">${tabs.map(t=>`<button class="chip ${t==tab?"on":""}" data-a="tab" data-t="${t}">${t}</button>`).join("")}</div>${body}</main>`;
@@ -171,7 +171,7 @@ function admin(){
 
 function render(){
   let body;
-  if(!db)body=`<main><p class="note">Paste your Firebase keys into CONFIG at the top of the code first.</p></main>`;
+  if(!db)body=`<main><p class="note">Paste your Firebase keys into CONFIG at the top first.</p></main>`;
   else if(view=="cart")body=cartView();
   else if(view=="login")body=login();
   else if(view=="orders"&&user)body=ordersView();
