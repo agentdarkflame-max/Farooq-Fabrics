@@ -2,33 +2,72 @@
 <html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Store</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;800&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 <style>
-:root{--m:#111;--a:#d4a017;--s:#f4f4f4}
+:root{--m:#0b3d2e;--a:#c9a227;--bg:#faf6ee;--l:#e8e2d3}
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:system-ui,sans-serif;color:#111;line-height:1.4}
+body{font-family:Poppins,system-ui,sans-serif;background:var(--bg);color:#1b1b1b;line-height:1.45}
+h1,h2,h3,.logo{font-family:'Playfair Display',Georgia,serif}
 button,input,select,textarea{font:inherit}
-button{cursor:pointer;border:0;border-radius:8px;padding:10px 14px;background:var(--s)}
-input,select,textarea{width:100%;padding:11px;border:1px solid #ccc;border-radius:8px;margin:4px 0 10px}
-.p{background:var(--a);font-weight:700}
-header{position:sticky;top:0;z-index:9;background:var(--m);color:#fff;padding:10px 12px}
-header button{background:#2a2a2a;color:#fff;padding:8px 12px}
+button{cursor:pointer;border:0;border-radius:6px;padding:10px 14px;background:var(--l);color:#111}
+input,select,textarea{width:100%;padding:11px;border:1px solid #cfc8b5;border-radius:6px;margin:4px 0 10px;background:#fff}
+.p{background:var(--a);font-weight:700;text-transform:uppercase;letter-spacing:.5px}
+.bar{background:var(--a);font-size:12px;font-weight:600;overflow:hidden;white-space:nowrap}
+.bar span{display:inline-block;padding:7px 0;animation:mq 24s linear infinite}
+@keyframes mq{from{transform:translateX(100vw)}to{transform:translateX(-100%)}}
+header{position:sticky;top:0;z-index:20;background:var(--m);color:#fff;padding:8px 10px;display:flex;align-items:center;justify-content:space-between}
+header button{background:none;color:#fff;font-size:20px;padding:6px 8px;position:relative}
+.logo{font-size:19px;font-weight:800;letter-spacing:2px;cursor:pointer}
+.bd{position:absolute;top:-2px;right:-2px;background:var(--a);color:#111;font-size:10px;font-weight:700;border-radius:10px;padding:1px 5px}
 .row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
 .sp{justify-content:space-between}
-.logo{font-weight:800;font-size:20px;letter-spacing:1px}
-.hero{background:linear-gradient(135deg,var(--m),#333);color:#fff;text-align:center;padding:50px 16px}
-.hero h1{font-size:28px}
-main{padding:16px;max-width:1100px;margin:auto}
+.sc{display:flex;gap:8px;overflow-x:auto;padding-bottom:8px}
+.sc button{white-space:nowrap}
+.hero{position:relative;min-height:72vh;display:flex;flex-direction:column;justify-content:center;padding:40px 20px;color:#fff;text-align:center;background:linear-gradient(120deg,#0b3d2e,#14573f,#7a1f2b,#0b3d2e);background-size:300% 300%;animation:gs 14s ease infinite}
+.hero:before{content:"";position:absolute;inset:0;background:radial-gradient(circle,rgba(201,162,39,.35) 2px,transparent 3px) 0 0/30px 30px,radial-gradient(circle,rgba(255,255,255,.12) 1px,transparent 2px) 15px 15px/30px 30px}
+.hero>*{position:relative;animation:up .8s both}
+.hero h1{font-size:40px;line-height:1.1;margin-bottom:12px}
+.hero p{max-width:480px;margin:0 auto 22px;opacity:.92}
+@keyframes gs{50%{background-position:100% 50%}}
+@keyframes up{from{opacity:0;transform:translateY(18px)}}
+main{padding:18px 14px;max-width:1150px;margin:auto}
+section{margin-bottom:34px}
+h2{font-size:26px;margin-bottom:14px}
+.tiles,.feat{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.tile{height:130px;border-radius:10px;color:#fff;display:flex;align-items:flex-end;padding:12px;font-family:'Playfair Display',serif;font-size:20px;font-weight:700;cursor:pointer;background:linear-gradient(160deg,#0b3d2e,#1d7a57)}
+.tile:nth-child(2){background:linear-gradient(160deg,#7a1f2b,#b03a4a)}
+.tile:nth-child(3){background:linear-gradient(160deg,#a6791a,#e0b84a)}
+.tile:nth-child(4){background:linear-gradient(160deg,#222,#555)}
+.feat div{background:#fff;border-radius:10px;padding:16px;font-size:14px;text-align:center}
 .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
-@media(min-width:700px){.grid{grid-template-columns:repeat(4,1fr)}}
-.card{background:var(--s);border-radius:10px;overflow:hidden}
-.card img,.ph{width:100%;aspect-ratio:1;object-fit:cover;background:#e5e5e5;display:flex;align-items:center;justify-content:center;font-size:50px}
+@media(min-width:700px){.grid,.tiles,.feat{grid-template-columns:repeat(4,1fr)}}
+.hs{display:flex;gap:12px;overflow-x:auto;padding-bottom:8px}
+.hs .card{min-width:160px;flex:0 0 160px}
+.card{background:#fff;border-radius:10px;overflow:hidden;cursor:pointer;position:relative;animation:up .5s both;animation-delay:var(--d,0s)}
+.card img,.ph{width:100%;aspect-ratio:3/4;object-fit:cover;display:block;background:#ece6d6;transition:transform .4s}
+.card:hover img{transform:scale(1.06)}
+.ph{display:flex;align-items:center;justify-content:center;font-size:50px}
 .i{padding:10px}
-.box{background:var(--s);border-radius:10px;padding:14px;margin-bottom:12px}
-.chip.on{background:var(--m);color:#fff}
-.stat{flex:1;min-width:140px;background:var(--s);border-radius:10px;padding:12px}
+.heart{position:absolute;top:8px;right:8px;background:#fff;border-radius:50%;width:34px;height:34px;padding:0;font-size:17px}
+.sale{position:absolute;top:8px;left:8px;z-index:1;background:#b3261e;color:#fff;font-size:11px;font-weight:700;padding:3px 8px;border-radius:4px}
+.old{text-decoration:line-through;color:#999;font-size:13px;margin-left:6px}
+.box{background:#fff;border-radius:10px;padding:14px;margin-bottom:12px}
+.chip.on,.opt .on{background:var(--m);color:#fff}
+.stat{flex:1;min-width:140px;background:var(--bg);border-radius:10px;padding:12px}
 .stat b{display:block;font-size:18px}
-.tag{font-size:12px;padding:2px 8px;border-radius:10px;background:#ddd}
+.tag{font-size:12px;padding:2px 8px;border-radius:10px;background:var(--l)}
 .note{background:#fff3cd;padding:10px;border-radius:8px;margin-bottom:10px}
+.ov{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:40;display:none}
+.ov.on{display:block}
+.dr{position:fixed;top:0;left:0;bottom:0;width:82%;max-width:340px;background:#fff;z-index:50;transform:translateX(-100%);transition:.3s;overflow:auto}
+.dr.on{transform:none}
+.dr h4{padding:14px 18px 6px;font-size:12px;letter-spacing:1.5px;color:#888;text-transform:uppercase}
+.dr a{display:block;padding:13px 18px;border-bottom:1px solid #f0ece0;cursor:pointer}
+.sh{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:60;display:flex;align-items:flex-end;justify-content:center}
+.sh>div{background:#fff;width:100%;max-width:520px;max-height:92vh;overflow:auto;border-radius:16px 16px 0 0;padding:16px;position:relative}
+.wa{position:fixed;right:14px;bottom:14px;z-index:30;background:#25d366;color:#fff;width:54px;height:54px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:26px;text-decoration:none;box-shadow:0 4px 12px rgba(0,0,0,.3)}
+footer{background:var(--m);color:#fff;padding:26px 16px;text-align:center;font-size:14px}
+@media(min-width:700px){.hero h1{font-size:56px}}
 </style></head><body>
 <div id="app"></div>
 <script type="module">
@@ -36,24 +75,37 @@ import {initializeApp} from "https://www.gstatic.com/firebasejs/10.12.2/firebase
 import {getAuth,onAuthStateChanged,createUserWithEmailAndPassword,signInWithEmailAndPassword,signOut} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 import {getFirestore,collection,doc,getDoc,setDoc,addDoc,getDocs,updateDoc,deleteDoc,query,where} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-// config: brand stuff and firebase keys live here
+// config: brand, colors, menu tabs and firebase keys live here
 const CONFIG={
   brand:"FAROOQ FABRICS",
-  tagline:"Style that fits you",
-  main:"#111111",
-  accent:"#d4a017",
-  currency:"Rs ",
+  tagline:"Pakistani style, made for you",
+  sub:"Shalwar kameez, kurtas, lawn and more. Cash on delivery across Pakistan.",
+  main:"#0b3d2e",accent:"#c9a227",currency:"Rs ",
+  freeShip:5000,shipFee:200,
+  promo:"Free delivery over Rs 5,000  •  Cash on delivery  •  7-day easy exchange  •  New arrivals every week",
+  menuTabs:["New arrivals","Men","Women","Kids","Sale"],
+  collections:["Shalwar Kameez","Kurta","Lawn","Waistcoat","Sherwani","Unstitched"],
   firebase:{apiKey:"AIzaSyCsO78t-MlGlgk_z4J3A_ujQyxNXK94y4A",authDomain:"farooq-fabrics.firebaseapp.com",projectId:"farooq-fabrics",appId:"1:1021735432205:web:4d78324bde833dc232a544"}
+};
+// info pages text, edit it however you like
+const INFO={
+  about:["About us","Farooq Fabrics is a Pakistani clothing brand. We make shalwar kameez, kurtas, lawn and more with good fabric and careful stitching."],
+  ship:["Shipping and returns","Delivery takes 3 to 7 working days across Pakistan. Free delivery over Rs 5,000, otherwise Rs 200. Exchange within 7 days if unworn with tags."],
+  faq:["FAQ","How do I pay? Cash on delivery, EasyPaisa, bank transfer, card or PayPal.\n\nHow do I pick a size? Choose it on the product page.\n\nCan I exchange? Yes, within 7 days."]
 };
 
 const $=s=>document.querySelector(s);
 const E=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
-const safe=u=>/^https?:\/\//.test(u||"")?E(u):"#";
+const safe=u=>/^(https?:\/\/|[\w\-\/.%]+$)/.test(u||"")?E(u):"#";
 const M=n=>CONFIG.currency+Math.round(n).toLocaleString();
-let user=null,role="customer",products=[],orders=[],team=[],settings={},cat="All",q="",view="shop",tab="stats";
-let cart=[];try{cart=JSON.parse(localStorage.getItem("cart"))||[]}catch(e){}
+let user=null,role="customer",products=[],orders=[],team=[],settings={},cat="All",q="",sort="",view="home",tab="stats",menu=false,modal=null;
+let cart=[],wish=[];
+try{cart=JSON.parse(localStorage.getItem("cart"))||[];wish=JSON.parse(localStorage.getItem("wish"))||[]}catch(e){}
 const saveCart=()=>{try{localStorage.setItem("cart",JSON.stringify(cart))}catch(e){}};
 const isStaff=()=>role=="owner"||role=="admin";
+const imgs=p=>String(p.image||"").split(",").map(s=>s.trim()).filter(Boolean);
+const sizes=p=>(p.sizes||"One size").split(",").map(s=>s.trim());
+const totals=()=>{const sub=cart.reduce((a,c)=>a+c.price*c.qty,0);return{sub,ship:sub&&sub<CONFIG.freeShip?CONFIG.shipFee:0}};
 document.documentElement.style.setProperty("--m",CONFIG.main);
 document.documentElement.style.setProperty("--a",CONFIG.accent);
 document.title=CONFIG.brand;
@@ -74,7 +126,6 @@ async function loadTeam(){
   team=[];if(role!="owner")return;
   team=(await getDocs(collection(db,"users"))).docs.map(d=>({id:d.id,...d.data()}));
 }
-
 if(db)onAuthStateChanged(auth,async u=>{
   user=u;role="customer";
   if(u){
@@ -85,30 +136,71 @@ if(db)onAuthStateChanged(auth,async u=>{
   await loadShop();await loadOrders();await loadTeam();render();
 });
 
+function list(){
+  const l=products.filter(p=>{
+    if(cat=="All"||cat=="New arrivals")return true;
+    if(cat=="Sale")return p.old>p.price;
+    if(cat=="Saved")return wish.includes(p.id);
+    return (p.cat||"").toLowerCase().split(",").map(s=>s.trim()).includes(cat.toLowerCase());
+  }).filter(p=>(p.name||"").toLowerCase().includes(q));
+  if(sort=="low")l.sort((a,b)=>a.price-b.price);
+  else if(sort=="high")l.sort((a,b)=>b.price-a.price);
+  else l.sort((a,b)=>(b.created||0)-(a.created||0));
+  return l;
+}
+const pic=(p,i=0)=>imgs(p)[i]?`<img src="${safe(imgs(p)[i])}" loading="lazy" alt="${E(p.name)}" onerror="this.outerHTML='<div class=ph>👕</div>'">`:`<div class="ph">👕</div>`;
+const card=(p,i)=>`<div class="card" style="--d:${Math.min(i,8)*.06}s" data-a="open" data-id="${p.id}">${p.old>p.price?'<span class="sale">SALE</span>':""}
+<button class="heart" data-a="wish" data-id="${p.id}">${wish.includes(p.id)?"♥":"♡"}</button>${pic(p)}
+<div class="i"><b>${E(p.name)}</b><br>${M(p.price)}${p.old>p.price?`<span class="old">${M(p.old)}</span>`:""}</div></div>`;
+
 function head(){
   const n=cart.reduce((a,c)=>a+c.qty,0);
-  return `<header><div class="row sp"><span class="logo">${E(CONFIG.brand)}</span><div class="row">
-  <button data-a="go" data-v="shop">Shop</button>
-  <button data-a="go" data-v="cart">Cart (${n})</button>
-  <button data-a="go" data-v="${user?"orders":"login"}">${user?"My orders":"Login"}</button>
-  ${isStaff()?`<button data-a="go" data-v="admin">Dashboard</button>`:""}
-  ${user?`<button data-a="out">Logout</button>`:""}</div></div></header>`;
+  return `<header><button data-a="menu">☰</button><span class="logo" data-a="go" data-v="home">${E(CONFIG.brand)}</span><div class="row" style="gap:0">
+  <button data-a="search">🔍</button><button data-a="cat" data-c="Saved">♡</button>
+  <button data-a="go" data-v="cart">🛒${n?`<span class="bd">${n}</span>`:""}</button>
+  <button data-a="go" data-v="${user?"orders":"login"}">👤</button></div></header>`;
+}
+function drawer(){
+  const l=(t,a,x="")=>`<a data-a="${a}" ${x}>${t}</a>`;
+  const c=n=>l(n,"cat",`data-c="${E(n)}"`);
+  return `<div class="ov ${menu?"on":""}" data-a="mx"></div><div class="dr ${menu?"on":""}">
+  <div class="row sp" style="padding:14px 18px;background:var(--m);color:#fff"><b class="logo">${E(CONFIG.brand)}</b><button data-a="mx" style="background:none;color:#fff">✕</button></div>
+  <h4>Shop</h4>${l("Home","go",'data-v="home"')}${CONFIG.menuTabs.map(c).join("")}
+  <h4>Collections</h4>${CONFIG.collections.map(c).join("")}
+  <h4>My account</h4>${l("Saved items ♥","cat",'data-c="Saved"')}${user?l("My orders","go",'data-v="orders"')+(isStaff()?l("Owner dashboard","go",'data-v="admin"'):"")+l("Logout","out"):l("Login / Sign up","go",'data-v="login"')}
+  <h4>Help</h4>${l("About us","go",'data-v="about"')}${l("Shipping and returns","go",'data-v="ship"')}${l("FAQ","go",'data-v="faq"')}${l("Contact us","go",'data-v="contact"')}</div>`;
+}
+function foot(){
+  return `<footer><div class="logo" style="font-size:22px;margin-bottom:8px">${E(CONFIG.brand)}</div><div class="row" style="justify-content:center;margin-bottom:10px">${[["About","about"],["Shipping","ship"],["FAQ","faq"],["Contact","contact"]].map(([t,v])=>`<a data-a="go" data-v="${v}" style="cursor:pointer;text-decoration:underline">${t}</a>`).join("")}</div><div style="opacity:.75">COD • EasyPaisa • Bank • Card • PayPal</div></footer>`;
 }
 
-function gridHTML(){
-  const list=products.filter(p=>(cat=="All"||p.cat==cat)&&(p.name||"").toLowerCase().includes(q));
-  if(!list.length)return "<p>No products yet.</p>";
-  return list.map(p=>`<div class="card">${p.image?`<img src="${safe(p.image)}" loading="lazy" alt="">`:`<div class="ph">👕</div>`}
-  <div class="i"><b>${E(p.name)}</b><br>${M(p.price)}
-  <select id="s${p.id}">${(p.sizes||"One size").split(",").map(s=>`<option>${E(s.trim())}</option>`).join("")}</select>
-  <button class="p" style="width:100%" data-a="add" data-id="${p.id}">Add to cart</button></div></div>`).join("");
+function home(){
+  const n=[...products].sort((a,b)=>(b.created||0)-(a.created||0)).slice(0,10);
+  const rv=[["Perfect fit and lovely fabric. Delivery was quick.","Ayesha"],["Lawn suit looks even better in person.","Bilal"],["Easy exchange, great service.","Hira"]];
+  return `<div class="hero"><h1>${E(CONFIG.tagline)}</h1><p>${E(CONFIG.sub)}</p><div><button class="p" data-a="cat" data-c="All">Shop now</button></div></div>
+  <main><section><h2>Shop by category</h2><div class="tiles">${["Men","Women","Kids","Sale"].map(c=>`<div class="tile" data-a="cat" data-c="${c}">${c}</div>`).join("")}</div></section>
+  <section><h2>New arrivals</h2><div class="hs">${n.map(card).join("")||"<p>Products coming soon.</p>"}</div></section>
+  <section><h2>Our collections</h2><div class="sc">${CONFIG.collections.map(c=>`<button data-a="cat" data-c="${c}">${c}</button>`).join("")}</div></section>
+  <section class="feat"><div>🚚<br><b>Free delivery</b><br>over ${M(CONFIG.freeShip)}</div><div>💵<br><b>Cash on delivery</b><br>pay at your door</div><div>🔄<br><b>Easy exchange</b><br>within 7 days</div><div>🧵<br><b>Quality stitching</b><br>premium fabric</div></section>
+  <section><h2>What customers say</h2>${rv.map(r=>`<div class="box">⭐⭐⭐⭐⭐<br>${r[0]}<br><b>${r[1]}</b></div>`).join("")}</section></main>`;
 }
-function shop(){
-  const cats=["All",...new Set(products.map(p=>p.cat).filter(Boolean))];
-  return `<div class="hero"><h1>${E(CONFIG.tagline)}</h1></div><main>
-  <input id="q" placeholder="Search clothes..." value="${E(q)}">
-  <div class="row" style="margin-bottom:12px">${cats.map(c=>`<button class="chip ${c==cat?"on":""}" data-a="cat" data-c="${E(c)}">${E(c)}</button>`).join("")}</div>
-  <div class="grid" id="grid">${gridHTML()}</div></main>`;
+function shopView(){
+  const cats=["All",...CONFIG.menuTabs,...CONFIG.collections,"Saved"];
+  return `<main><h2>${E(cat)}</h2><input id="q" placeholder="Search clothes..." value="${E(q)}">
+  <div class="sc">${cats.map(c=>`<button class="chip ${c==cat?"on":""}" data-a="cat" data-c="${E(c)}">${E(c)}</button>`).join("")}</div>
+  <div class="row sp" style="margin:10px 0"><span></span><select id="sort" style="width:auto;margin:0"><option value="">Newest</option><option value="low" ${sort=="low"?"selected":""}>Price: low to high</option><option value="high" ${sort=="high"?"selected":""}>Price: high to low</option></select></div>
+  <div class="grid" id="grid">${list().map(card).join("")||"<p>Nothing here yet.</p>"}</div></main>`;
+}
+function modalHTML(){
+  const p=modal&&products.find(x=>x.id==modal.id);if(!p)return "";
+  const im=imgs(p);
+  return `<div class="sh" data-a="mclose"><div><button data-a="mclose" style="position:absolute;right:10px;top:10px;z-index:2;border-radius:50%">✕</button>${pic(p,modal.i)}
+  ${im.length>1?`<div class="row chipbar" style="margin:8px 0">${im.map((_,k)=>`<button class="chip ${k==modal.i?"on":""}" data-a="mimg" data-k="${k}">${k+1}</button>`).join("")}</div>`:""}
+  <h2 style="margin-top:10px">${E(p.name)}</h2><p><b>${M(p.price)}</b>${p.old>p.price?`<span class="old">${M(p.old)}</span>`:""}</p>
+  <p style="margin:8px 0">${E(p.desc||"")}</p><b>Size</b>
+  <div class="row opt" style="margin:6px 0 12px">${sizes(p).map(s=>`<button class="${s==modal.size?"on":""}" data-a="msize" data-s="${E(s)}">${E(s)}</button>`).join("")}</div>
+  <div class="row" style="margin-bottom:12px"><button data-a="mq" data-n="-1">-</button><b>${modal.qty}</b><button data-a="mq" data-n="1">+</button></div>
+  <button class="p" style="width:100%" data-a="madd">Add to cart</button></div></div>`;
 }
 
 function payInfo(m){
@@ -121,37 +213,41 @@ function payInfo(m){
 }
 function checkout(){
   return `<div class="box"><h3>Delivery</h3><input id="cn" placeholder="Full name"><input id="cp" placeholder="Phone"><textarea id="ca" placeholder="Address"></textarea>
-  <h3>Payment</h3><select id="pm"><option value="card">Debit / credit card</option><option value="paypal">PayPal</option><option value="easypaisa">EasyPaisa</option><option value="bank">Bank transfer</option><option value="cod">Cash on delivery</option></select>
-  <p id="pi" style="margin-bottom:8px"></p><input id="cr" placeholder="Payment reference / transaction ID">
+  <h3>Payment</h3><select id="pm"><option value="cod">Cash on delivery</option><option value="easypaisa">EasyPaisa</option><option value="bank">Bank transfer</option><option value="card">Debit / credit card</option><option value="paypal">PayPal</option></select>
+  <p id="pi" style="margin-bottom:8px"></p><input id="cr" placeholder="Payment reference / transaction ID (not needed for cash on delivery)">
   <button class="p" style="width:100%" data-a="order">Place order</button></div>`;
 }
 function cartView(){
-  if(!cart.length)return `<main><p>Your cart is empty.</p></main>`;
-  const t=cart.reduce((a,c)=>a+c.price*c.qty,0);
+  if(!cart.length)return `<main><h2>Cart</h2><p>Your cart is empty.</p></main>`;
+  const {sub,ship}=totals();
   return `<main><h2>Cart</h2>${cart.map((c,i)=>`<div class="box row sp"><span>${E(c.name)} (${E(c.size)}) x${c.qty}<br>${M(c.price*c.qty)}</span>
   <span><button data-a="qm" data-i="${i}">-</button> <button data-a="qp" data-i="${i}">+</button> <button data-a="rm" data-i="${i}">✕</button></span></div>`).join("")}
-  <h3 style="margin:10px 0">Total: ${M(t)}</h3>
+  <div class="box"><div class="row sp"><span>Subtotal</span><b>${M(sub)}</b></div><div class="row sp"><span>Delivery</span><b>${ship?M(ship):"Free"}</b></div><div class="row sp"><span>Total</span><b>${M(sub+ship)}</b></div>${ship?`<small>Add ${M(CONFIG.freeShip-sub)} more for free delivery</small>`:""}</div>
   ${user?checkout():`<p class="note">Login first to place your order.</p><button class="p" data-a="go" data-v="login">Login or sign up</button>`}</main>`;
 }
 function login(){
   return `<main style="max-width:400px"><h2>Login or sign up</h2><input id="em" type="email" placeholder="Email"><input id="pw" type="password" placeholder="Password (6+ characters)">
   <button class="p" style="width:100%" data-a="in">Login</button><br><br><button style="width:100%" data-a="up">Create account</button></main>`;
 }
-function orderBox(o,admin){
+function contact(){
+  const w=String(settings.whatsapp||"").replace(/\D/g,"");
+  return `<main><h2>Contact us</h2><div class="box"><p>Questions about an order or a size? Message us.</p><br>${w?`<a class="p" style="display:inline-block;padding:12px 18px;border-radius:6px;text-decoration:none;color:#111" href="https://wa.me/${w}" target="_blank">Chat on WhatsApp</a>`:"<p>Contact details coming soon.</p>"}</div></main>`;
+}
+function orderBox(o,adm){
   return `<div class="box"><div class="row sp"><b>${M(o.total)}</b><span class="tag">${E(o.status)}</span></div>
   ${o.items.map(i=>`${E(i.name)} (${E(i.size)}) x${i.qty}`).join("<br>")}<br>
   <small>${new Date(o.created).toLocaleString()} | ${E(o.method)} | ref: ${E(o.ref||"-")}</small>
-  ${admin?`<br><small>${E(o.name)} | ${E(o.phone)} | ${E(o.address)} | ${E(o.email)}</small><div class="row" style="margin-top:8px">
+  ${adm?`<br><small>${E(o.name)} | ${E(o.phone)} | ${E(o.address)} | ${E(o.email)}</small><div class="row" style="margin-top:8px">
   <button data-a="st" data-id="${o.id}" data-s="paid">Paid</button><button data-a="st" data-id="${o.id}" data-s="shipped">Shipped</button><button data-a="st" data-id="${o.id}" data-s="cancelled">Cancel</button></div>`:""}</div>`;
 }
-function ordersView(){return `<main><h2>My orders</h2>${orders.map(o=>orderBox(o,false)).join("")||"<p>No orders yet.</p>"}</main>`}
+const ordersView=()=>`<main><h2>My orders</h2>${orders.map(o=>orderBox(o,false)).join("")||"<p>No orders yet.</p>"}</main>`;
 
 function stats(){
   const n=new Date(),day=new Date(n.getFullYear(),n.getMonth(),n.getDate()).getTime();
   const ranges={"Today":day,"Last 7 days":day-6*864e5,"This month":new Date(n.getFullYear(),n.getMonth(),1).getTime(),"This year":new Date(n.getFullYear(),0,1).getTime()};
   const ok=orders.filter(o=>o.status=="paid"||o.status=="shipped");
   return Object.entries(ranges).map(([k,t])=>{
-    const l=ok.filter(o=>o.created>=t),rev=l.reduce((a,o)=>a+o.total,0);
+    const l=ok.filter(o=>o.created>=t),rev=l.reduce((a,o)=>a+o.total-(o.ship||0),0);
     const cost=l.reduce((a,o)=>a+o.items.reduce((b,i)=>b+i.cost*i.qty,0),0);
     return `<div class="box"><b>${k}</b><div class="row" style="margin-top:8px"><div class="stat">Earned<b>${M(rev)}</b></div><div class="stat">Profit<b>${M(rev-cost)}</b></div><div class="stat">Sales<b>${l.length}</b></div></div></div>`;
   }).join("")+`<p>Waiting for payment check: ${orders.filter(o=>o.status=="pending").length}</p>`;
@@ -160,13 +256,13 @@ function admin(){
   const tabs=["stats","products","orders"].concat(role=="owner"?["settings","team"]:[]);
   let body="";
   if(tab=="stats")body=stats();
-  if(tab=="products")body=`<div class="box"><h3>Add clothing</h3><input id="pn" placeholder="Name"><input id="pr" type="number" placeholder="Selling price"><input id="pc" type="number" placeholder="Your cost (for profit)"><input id="pt" placeholder="Category, e.g. Men"><input id="pg" placeholder="Image link (https://...)"><input id="ps" placeholder="Sizes, e.g. S,M,L,XL"><button class="p" data-a="addp">Add product</button></div>`
+  if(tab=="products")body=`<div class="box"><h3>Add clothing</h3><input id="pn" placeholder="Name"><input id="pr" type="number" placeholder="Selling price"><input id="po" type="number" placeholder="Old price (optional, shows SALE)"><input id="pc" type="number" placeholder="Your cost (for profit)"><input id="pt" placeholder="Categories, e.g. Men, Kurta"><input id="pg" placeholder="Image file or link (several: separate with commas)"><input id="ps" placeholder="Sizes, e.g. S,M,L,XL"><textarea id="pd" placeholder="Description"></textarea><small>Images: a direct .jpg/.png link, or a file name you uploaded to GitHub, like suit1.jpg</small><br><br><button class="p" data-a="addp">Add product</button></div>`
     +products.map(p=>`<div class="box row sp"><span>${E(p.name)} - ${M(p.price)}</span><button data-a="delp" data-id="${p.id}">Delete</button></div>`).join("");
   if(tab=="orders")body=orders.map(o=>orderBox(o,true)).join("")||"<p>No orders yet.</p>";
-  if(tab=="settings")body=`<div class="box"><h3>Payment details</h3><input id="s1" placeholder="Card payment link" value="${E(settings.cardLink)}"><input id="s2" placeholder="PayPal link" value="${E(settings.paypalLink)}"><input id="s3" placeholder="EasyPaisa number and name" value="${E(settings.easypaisa)}"><input id="s4" placeholder="Bank name, account number, title" value="${E(settings.bank)}"><button class="p" data-a="save">Save</button></div>`;
+  if(tab=="settings")body=`<div class="box"><h3>Payment and contact details</h3><input id="s1" placeholder="Card payment link" value="${E(settings.cardLink)}"><input id="s2" placeholder="PayPal link" value="${E(settings.paypalLink)}"><input id="s3" placeholder="EasyPaisa number and name" value="${E(settings.easypaisa)}"><input id="s4" placeholder="Bank name, account number, title" value="${E(settings.bank)}"><input id="s5" placeholder="WhatsApp number, e.g. 923001234567" value="${E(settings.whatsapp)}"><button class="p" data-a="save">Save</button></div>`;
   if(tab=="team")body=`<div class="box"><h3>Give or remove a role</h3><input id="te" type="email" placeholder="Their account email"><select id="tr"><option value="admin">Admin (manage products and orders)</option><option value="customer">Normal shopper</option></select><button class="p" data-a="role">Save role</button></div>`
     +team.map(u=>`<div class="box">${E(u.email)} <span class="tag">${E(u.role)}</span></div>`).join("");
-  return `<main><div class="row" style="margin-bottom:12px">${tabs.map(t=>`<button class="chip ${t==tab?"on":""}" data-a="tab" data-t="${t}">${t}</button>`).join("")}</div>${body}</main>`;
+  return `<main><h2>Dashboard</h2><div class="sc">${tabs.map(t=>`<button class="chip ${t==tab?"on":""}" data-a="tab" data-t="${t}">${t}</button>`).join("")}</div><br>${body}</main>`;
 }
 
 function render(){
@@ -176,49 +272,62 @@ function render(){
   else if(view=="login")body=login();
   else if(view=="orders"&&user)body=ordersView();
   else if(view=="admin"&&isStaff())body=admin();
-  else body=shop();
-  $("#app").innerHTML=head()+body;
+  else if(view=="shop")body=shopView();
+  else if(view=="contact")body=contact();
+  else if(INFO[view])body=`<main><h2>${E(INFO[view][0])}</h2><div class="box" style="white-space:pre-line">${E(INFO[view][1])}</div></main>`;
+  else body=home();
+  const w=String(settings.whatsapp||"").replace(/\D/g,"");
+  $("#app").innerHTML=`<div class="bar"><span>${E(CONFIG.promo)}</span></div>`+head()+body+foot()+drawer()+modalHTML()+(w?`<a class="wa" href="https://wa.me/${w}" target="_blank">💬</a>`:"");
   const pm=$("#pm");if(pm)$("#pi").innerHTML=payInfo(pm.value);
 }
 
 async function placeOrder(){
-  const f=id=>$("#"+id).value.trim(),m=f("pm");
+  const f=id=>$("#"+id).value.trim(),m=f("pm"),{sub,ship}=totals();
   if(!f("cn")||!f("cp")||!f("ca"))return alert("Fill in your name, phone and address");
   if(m!="cod"&&!f("cr"))return alert("Add your payment reference");
   await addDoc(collection(db,"orders"),{uid:user.uid,email:user.email,name:f("cn"),phone:f("cp"),address:f("ca"),method:m,ref:f("cr"),
     items:cart.map(c=>({id:c.id,name:c.name,size:c.size,price:c.price,cost:c.cost||0,qty:c.qty})),
-    total:cart.reduce((a,c)=>a+c.price*c.qty,0),status:"pending",created:Date.now()});
-  cart=[];saveCart();await loadOrders();view="orders";render();
+    total:sub+ship,ship,status:"pending",created:Date.now()});
+  cart=[];saveCart();await loadOrders();view="orders";render();scrollTo(0,0);
 }
 
 document.addEventListener("click",async e=>{
   const b=e.target.closest("[data-a]");if(!b)return;
   const a=b.dataset.a,d=b.dataset;
+  if(a=="mclose"&&e.target!==b)return;
   try{
-    if(a=="go"){view=d.v;if(view=="admin"){await loadOrders();await loadTeam()}render()}
-    else if(a=="cat"){cat=d.c;render()}
-    else if(a=="add"){
-      const p=products.find(x=>x.id==d.id),size=$("#s"+d.id).value;
-      const ex=cart.find(c=>c.id==p.id&&c.size==size);
-      if(ex)ex.qty++;else cart.push({id:p.id,name:p.name,price:p.price,cost:p.cost||0,size,qty:1});
-      saveCart();render();
+    if(a=="go"){view=d.v;menu=false;if(view=="admin"){await loadOrders();await loadTeam()}render();scrollTo(0,0)}
+    else if(a=="cat"){cat=d.c;view="shop";menu=false;render();scrollTo(0,0)}
+    else if(a=="menu"){menu=true;render()}
+    else if(a=="mx"){menu=false;render()}
+    else if(a=="search"){view="shop";cat="All";render();$("#q").focus()}
+    else if(a=="open"){const p=products.find(x=>x.id==d.id);modal={id:d.id,size:sizes(p)[0],qty:1,i:0};render()}
+    else if(a=="wish"){const i=wish.indexOf(d.id);i<0?wish.push(d.id):wish.splice(i,1);try{localStorage.setItem("wish",JSON.stringify(wish))}catch(x){}b.textContent=wish.includes(d.id)?"♥":"♡"}
+    else if(a=="mclose"){modal=null;render()}
+    else if(a=="mimg"){modal.i=+d.k;render()}
+    else if(a=="msize"){modal.size=d.s;render()}
+    else if(a=="mq"){modal.qty=Math.max(1,modal.qty+Number(d.n));render()}
+    else if(a=="madd"){
+      const p=products.find(x=>x.id==modal.id),ex=cart.find(c=>c.id==p.id&&c.size==modal.size);
+      if(ex)ex.qty+=modal.qty;else cart.push({id:p.id,name:p.name,price:p.price,cost:p.cost||0,size:modal.size,qty:modal.qty});
+      modal=null;saveCart();view="cart";render();scrollTo(0,0);
     }
     else if(a=="qm"){if(cart[d.i].qty>1)cart[d.i].qty--;saveCart();render()}
     else if(a=="qp"){cart[d.i].qty++;saveCart();render()}
     else if(a=="rm"){cart.splice(d.i,1);saveCart();render()}
-    else if(a=="in"){view="shop";await signInWithEmailAndPassword(auth,$("#em").value,$("#pw").value)}
-    else if(a=="up"){view="shop";await createUserWithEmailAndPassword(auth,$("#em").value,$("#pw").value)}
-    else if(a=="out"){view="shop";await signOut(auth)}
+    else if(a=="in"){await signInWithEmailAndPassword(auth,$("#em").value.trim(),$("#pw").value);view="home";render()}
+    else if(a=="up"){await createUserWithEmailAndPassword(auth,$("#em").value.trim(),$("#pw").value);view="home";render()}
+    else if(a=="out"){menu=false;view="home";await signOut(auth)}
     else if(a=="order")await placeOrder();
     else if(a=="tab"){tab=d.t;render()}
     else if(a=="addp"){
-      await addDoc(collection(db,"products"),{name:$("#pn").value.trim(),price:+$("#pr").value,cost:+$("#pc").value||0,cat:$("#pt").value.trim(),image:$("#pg").value.trim(),sizes:$("#ps").value.trim()||"One size"});
+      await addDoc(collection(db,"products"),{name:$("#pn").value.trim(),price:+$("#pr").value,old:+$("#po").value||0,cost:+$("#pc").value||0,cat:$("#pt").value.trim(),image:$("#pg").value.trim(),sizes:$("#ps").value.trim()||"One size",desc:$("#pd").value.trim(),created:Date.now()});
       await loadShop();render();
     }
     else if(a=="delp"){if(confirm("Delete this product?")){await deleteDoc(doc(db,"products",d.id));await loadShop();render()}}
     else if(a=="st"){await updateDoc(doc(db,"orders",d.id),{status:d.s});await loadOrders();render()}
     else if(a=="save"){
-      await setDoc(doc(db,"settings","main"),{cardLink:$("#s1").value.trim(),paypalLink:$("#s2").value.trim(),easypaisa:$("#s3").value.trim(),bank:$("#s4").value.trim()});
+      await setDoc(doc(db,"settings","main"),{cardLink:$("#s1").value.trim(),paypalLink:$("#s2").value.trim(),easypaisa:$("#s3").value.trim(),bank:$("#s4").value.trim(),whatsapp:$("#s5").value.trim()});
       await loadShop();alert("Saved");
     }
     else if(a=="role"){
@@ -230,8 +339,13 @@ document.addEventListener("click",async e=>{
     }
   }catch(err){alert(err.message)}
 });
-document.addEventListener("change",e=>{if(e.target.id=="pm")$("#pi").innerHTML=payInfo(e.target.value)});
-document.addEventListener("input",e=>{if(e.target.id=="q"){q=e.target.value.toLowerCase();$("#grid").innerHTML=gridHTML()}});
+document.addEventListener("change",e=>{
+  if(e.target.id=="pm")$("#pi").innerHTML=payInfo(e.target.value);
+  if(e.target.id=="sort"){sort=e.target.value;render()}
+});
+document.addEventListener("input",e=>{
+  if(e.target.id=="q"){q=e.target.value.toLowerCase();$("#grid").innerHTML=list().map(card).join("")||"<p>Nothing found.</p>"}
+});
 render();
 </script>
 </body></html>
