@@ -1,326 +1,237 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>My Store</title>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Store</title>
 <style>
-:root{--main:#111;--accent:#d4a017;--bg:#fff;--text:#111;--soft:#f4f4f4}
+:root{--m:#111;--a:#d4a017;--s:#f4f4f4}
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:system-ui,sans-serif;color:var(--text);background:var(--bg);line-height:1.4}
-button{font:inherit;cursor:pointer;border:0}
-a{color:inherit}
-header{position:sticky;top:0;z-index:20;background:var(--main);color:#fff;padding:10px 14px}
-.top{display:flex;align-items:center;justify-content:space-between;gap:10px}
-.brand{font-weight:800;font-size:20px;letter-spacing:1px}
-.icon{background:none;color:#fff;font-size:22px;position:relative;padding:4px 8px}
-.badge{position:absolute;top:-4px;right:-2px;background:var(--accent);color:#000;font-size:11px;font-weight:700;border-radius:10px;padding:1px 6px}
-#search{width:100%;margin-top:10px;padding:10px 14px;border-radius:20px;border:0;font-size:15px}
-nav{display:none;background:var(--main);padding:6px 14px 12px}
-nav.open{display:block}
-nav a{display:block;color:#fff;text-decoration:none;padding:8px 0;border-bottom:1px solid #333}
-.hero{background:linear-gradient(135deg,var(--main),#333);color:#fff;text-align:center;padding:60px 20px}
-.hero h1{font-size:30px;margin-bottom:8px}
-.hero p{opacity:.85;margin-bottom:18px}
-.btn{background:var(--accent);color:#000;font-weight:700;padding:12px 22px;border-radius:8px;display:inline-block;text-decoration:none}
-.btn.dark{background:var(--main);color:#fff}
-section{padding:26px 14px;max-width:1100px;margin:auto}
-h2{margin-bottom:14px;font-size:22px}
-.bar{display:flex;gap:8px;overflow-x:auto;padding-bottom:10px;align-items:center}
-.chip{background:var(--soft);padding:8px 14px;border-radius:20px;white-space:nowrap;font-size:14px}
-.chip.on{background:var(--main);color:#fff}
-select{padding:8px;border-radius:8px;border:1px solid #ccc;font:inherit}
-.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:10px}
+body{font-family:system-ui,sans-serif;color:#111;line-height:1.4}
+button,input,select,textarea{font:inherit}
+button{cursor:pointer;border:0;border-radius:8px;padding:10px 14px;background:var(--s)}
+input,select,textarea{width:100%;padding:11px;border:1px solid #ccc;border-radius:8px;margin:4px 0 10px}
+.p{background:var(--a);font-weight:700}
+header{position:sticky;top:0;z-index:9;background:var(--m);color:#fff;padding:10px 12px}
+header button{background:#2a2a2a;color:#fff;padding:8px 12px}
+.row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.sp{justify-content:space-between}
+.logo{font-weight:800;font-size:20px;letter-spacing:1px}
+.hero{background:linear-gradient(135deg,var(--m),#333);color:#fff;text-align:center;padding:50px 16px}
+.hero h1{font-size:28px}
+main{padding:16px;max-width:1100px;margin:auto}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
 @media(min-width:700px){.grid{grid-template-columns:repeat(4,1fr)}}
-.card{background:var(--soft);border-radius:10px;overflow:hidden;cursor:pointer;position:relative}
-.card img,.ph{width:100%;aspect-ratio:1;object-fit:cover;display:flex;align-items:center;justify-content:center;font-size:56px;background:#e6e6e6}
-.card .info{padding:10px}
-.card .name{font-size:14px;font-weight:600}
-.old{text-decoration:line-through;color:#888;font-size:13px;margin-left:6px}
-.sale{position:absolute;top:8px;left:8px;background:#d32f2f;color:#fff;font-size:11px;font-weight:700;padding:3px 8px;border-radius:6px}
-.overlay{position:fixed;inset:0;background:rgba(0,0,0,.55);display:none;z-index:40;align-items:flex-end;justify-content:center}
-.overlay.open{display:flex}
-.sheet{background:#fff;width:100%;max-width:520px;max-height:90vh;overflow:auto;border-radius:16px 16px 0 0;padding:18px;position:relative}
-.close{position:absolute;top:10px;right:14px;background:none;font-size:26px}
-.opt{display:flex;gap:8px;flex-wrap:wrap;margin:6px 0 14px}
-.opt button{padding:8px 14px;border-radius:8px;background:var(--soft);border:2px solid transparent}
-.opt button.on{border-color:var(--main);background:#fff;font-weight:700}
-.qty{display:flex;align-items:center;gap:12px;margin:6px 0 14px}
-.qty button{width:34px;height:34px;border-radius:50%;background:var(--soft);font-size:18px}
-.drawer{position:fixed;top:0;right:0;height:100%;width:100%;max-width:400px;background:#fff;z-index:50;transform:translateX(100%);transition:.25s;display:flex;flex-direction:column}
-.drawer.open{transform:none}
-.drawer .head{padding:16px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #eee}
-.drawer .items{flex:1;overflow:auto;padding:12px 16px}
-.drawer .foot{padding:16px;border-top:1px solid #eee}
-.line{display:flex;gap:10px;align-items:center;margin-bottom:14px}
-.line .em{font-size:30px;background:var(--soft);border-radius:8px;width:52px;height:52px;display:flex;align-items:center;justify-content:center;overflow:hidden}
-.line .em img{width:100%;height:100%;object-fit:cover}
-.line .mid{flex:1;font-size:14px}
-.review{background:var(--soft);padding:14px;border-radius:10px;margin-bottom:10px}
-details{background:var(--soft);padding:12px 14px;border-radius:10px;margin-bottom:8px}
-summary{font-weight:600;cursor:pointer}
-details p{margin-top:8px;font-size:14px}
-.news{display:flex;gap:8px}
-.news input{flex:1;padding:12px;border-radius:8px;border:1px solid #ccc;font:inherit}
-footer{background:var(--main);color:#fff;text-align:center;padding:26px 14px;font-size:14px}
-footer a{margin:0 8px}
-.hidden{display:none}
-</style>
-</head>
-<body>
+.card{background:var(--s);border-radius:10px;overflow:hidden}
+.card img,.ph{width:100%;aspect-ratio:1;object-fit:cover;background:#e5e5e5;display:flex;align-items:center;justify-content:center;font-size:50px}
+.i{padding:10px}
+.box{background:var(--s);border-radius:10px;padding:14px;margin-bottom:12px}
+.chip.on{background:var(--m);color:#fff}
+.stat{flex:1;min-width:140px;background:var(--s);border-radius:10px;padding:12px}
+.stat b{display:block;font-size:18px}
+.tag{font-size:12px;padding:2px 8px;border-radius:10px;background:#ddd}
+.note{background:#fff3cd;padding:10px;border-radius:8px;margin-bottom:10px}
+</style></head><body>
+<div id="app"></div>
+<script type="module">
+import {initializeApp} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import {getAuth,onAuthStateChanged,createUserWithEmailAndPassword,signInWithEmailAndPassword,signOut} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import {getFirestore,collection,doc,getDoc,setDoc,addDoc,getDocs,updateDoc,deleteDoc,query,where} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-<header>
-  <div class="top">
-    <button class="icon" id="menuBtn" aria-label="Menu">&#9776;</button>
-    <div class="brand" id="brandName"></div>
-    <button class="icon" id="cartBtn" aria-label="Cart">&#128722;<span class="badge" id="count">0</span></button>
-  </div>
-  <input id="search" type="search" placeholder="Search clothes...">
-</header>
-<nav id="nav">
-  <a href="#shop">Shop</a>
-  <a href="#reviews">Reviews</a>
-  <a href="#faq">FAQ and Shipping</a>
-  <a href="#contact">Contact</a>
-</nav>
-
-<div class="hero">
-  <h1 id="heroTitle"></h1>
-  <p id="heroText"></p>
-  <a class="btn" href="#shop">Shop Now</a>
-</div>
-
-<section id="shop">
-  <h2>Shop</h2>
-  <div class="bar" id="cats"></div>
-  <div class="bar">
-    <select id="sort">
-      <option value="">Sort by</option>
-      <option value="low">Price: low to high</option>
-      <option value="high">Price: high to low</option>
-    </select>
-  </div>
-  <div class="grid" id="grid"></div>
-  <p id="empty" class="hidden">Nothing found, try another search.</p>
-</section>
-
-<section id="reviews">
-  <h2>What customers say</h2>
-  <div class="review">&#11088;&#11088;&#11088;&#11088;&#11088;<br>Great quality and fast delivery. Fits perfectly!<br><b>Alex</b></div>
-  <div class="review">&#11088;&#11088;&#11088;&#11088;&#11088;<br>Looks even better in person. Will order again.<br><b>Sam</b></div>
-  <div class="review">&#11088;&#11088;&#11088;&#11088;<br>Nice material and good packaging.<br><b>Jordan</b></div>
-</section>
-
-<section id="faq">
-  <h2>FAQ, shipping and returns</h2>
-  <details><summary>How long does shipping take?</summary><p>Usually 3 to 7 business days. Edit this text to match your real shipping times.</p></details>
-  <details><summary>What is your return policy?</summary><p>Returns accepted within 14 days if unworn with tags. Edit this to match your policy.</p></details>
-  <details><summary>How do I pick my size?</summary><p>Check the size guide: S (chest 86-91cm), M (92-97cm), L (98-103cm), XL (104-109cm). Edit with your real sizes.</p></details>
-  <details><summary>How can I pay?</summary><p>Card payments go through Stripe secure checkout.</p></details>
-</section>
-
-<section id="contact">
-  <h2>Contact and newsletter</h2>
-  <p style="margin-bottom:12px">Questions? Message us anytime.</p>
-  <div class="news">
-    <input id="newsMail" type="email" placeholder="Your email for deals">
-    <button class="btn dark" id="newsBtn">Join</button>
-  </div>
-</section>
-
-<footer>
-  <div id="footBrand" style="margin-bottom:8px"></div>
-  <a id="ig" href="#">Instagram</a><a id="tt" href="#">TikTok</a>
-  <div style="margin-top:10px;opacity:.7">Privacy and terms: add your policy links here</div>
-</footer>
-
-<div class="overlay" id="prodOverlay"><div class="sheet" id="prodSheet"></div></div>
-<div class="overlay" id="cartOverlay"></div>
-<div class="drawer" id="drawer">
-  <div class="head"><b>Your cart</b><button class="close" style="position:static" id="closeCart">&times;</button></div>
-  <div class="items" id="items"></div>
-  <div class="foot">
-    <div style="display:flex;justify-content:space-between;margin-bottom:10px"><b>Subtotal</b><b id="subtotal"></b></div>
-    <button class="btn" style="width:100%" id="checkout">Checkout</button>
-  </div>
-</div>
-
-<script>
-// config: change your brand stuff here
-const CONFIG = {
-  brand: "MY BRAND",
-  tagline: "Fresh drops for your style",
-  sub: "Quality clothes. Fast shipping. Easy returns.",
-  main: "#111111",
-  accent: "#d4a017",
-  currency: "$",
-  whatsapp: "",            // your number with country code, no plus, e.g. 15551234567
-  email: "",               // your email for orders and newsletter
-  instagram: "#",
-  tiktok: "#",
-  categories: ["All", "Men", "Women", "Kids", "New", "Sale"]
+// config: paste your firebase keys and change brand stuff here
+const CONFIG={
+  brand:"FAROOQ FABRICS",
+  tagline:"Style that fits you",
+  main:"#111111",
+  accent:"#d4a017",
+  currency:"Rs ",
+  firebase:{apiKey:"",authDomain:"",projectId:"",appId:""}
 };
 
-// config: your products. payLink = your Stripe Payment Link for that item
-const PRODUCTS = [
-  {id:1, name:"Classic Hoodie", price:39.99, oldPrice:0, cat:["Men","New"], emoji:"🧥", image:"", sizes:["S","M","L","XL"], colors:["Black","Grey"], desc:"Soft heavy hoodie, warm and comfy.", payLink:""},
-  {id:2, name:"Oversized Tee", price:19.99, oldPrice:29.99, cat:["Men","Women","Sale"], emoji:"👕", image:"", sizes:["S","M","L"], colors:["White","Black"], desc:"Loose fit cotton tee.", payLink:""},
-  {id:3, name:"Slim Jeans", price:49.99, oldPrice:0, cat:["Women"], emoji:"👖", image:"", sizes:["S","M","L"], colors:["Blue"], desc:"Stretchy slim fit jeans.", payLink:""},
-  {id:4, name:"Kids Joggers", price:24.99, oldPrice:0, cat:["Kids","New"], emoji:"🩳", image:"", sizes:["4Y","6Y","8Y"], colors:["Grey","Navy"], desc:"Easy joggers for active kids.", payLink:""}
-];
+const $=s=>document.querySelector(s);
+const E=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const safe=u=>/^https?:\/\//.test(u||"")?E(u):"#";
+const M=n=>CONFIG.currency+Math.round(n).toLocaleString();
+let user=null,role="customer",products=[],orders=[],team=[],settings={},cat="All",q="",view="shop",tab="stats";
+let cart=[];try{cart=JSON.parse(localStorage.getItem("cart"))||[]}catch(e){}
+const saveCart=()=>{try{localStorage.setItem("cart",JSON.stringify(cart))}catch(e){}};
+const isStaff=()=>role=="owner"||role=="admin";
+document.documentElement.style.setProperty("--m",CONFIG.main);
+document.documentElement.style.setProperty("--a",CONFIG.accent);
+document.title=CONFIG.brand;
 
-// below here is the shop logic, you can leave it alone
-const $ = s => document.querySelector(s);
-let cat = "All", query = "", sort = "";
-let cart = [];
-try { cart = JSON.parse(localStorage.getItem("cart")) || []; } catch (e) {}
+let auth,db;
+if(CONFIG.firebase.apiKey){const app=initializeApp(CONFIG.firebase);auth=getAuth(app);db=getFirestore(app)}
 
-const money = n => CONFIG.currency + n.toFixed(2);
-const find = id => PRODUCTS.find(p => p.id === id);
-
-function save() {
-  try { localStorage.setItem("cart", JSON.stringify(cart)); } catch (e) {}
-  $("#count").textContent = cart.reduce((a, c) => a + c.qty, 0);
+async function loadShop(){
+  products=(await getDocs(collection(db,"products"))).docs.map(d=>({id:d.id,...d.data()}));
+  const s=await getDoc(doc(db,"settings","main"));settings=s.exists()?s.data():{};
+}
+async function loadOrders(){
+  orders=[];if(!user)return;
+  const ref=isStaff()?collection(db,"orders"):query(collection(db,"orders"),where("uid","==",user.uid));
+  orders=(await getDocs(ref)).docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>b.created-a.created);
+}
+async function loadTeam(){
+  team=[];if(role!="owner")return;
+  team=(await getDocs(collection(db,"users"))).docs.map(d=>({id:d.id,...d.data()}));
 }
 
-function pic(p) {
-  return p.image ? `<img src="${p.image}" alt="${p.name}" loading="lazy">` : `<div class="ph">${p.emoji || "👕"}</div>`;
-}
-
-function setup() {
-  document.documentElement.style.setProperty("--main", CONFIG.main);
-  document.documentElement.style.setProperty("--accent", CONFIG.accent);
-  document.title = CONFIG.brand;
-  $("#brandName").textContent = CONFIG.brand;
-  $("#footBrand").textContent = CONFIG.brand;
-  $("#heroTitle").textContent = CONFIG.tagline;
-  $("#heroText").textContent = CONFIG.sub;
-  $("#ig").href = CONFIG.instagram;
-  $("#tt").href = CONFIG.tiktok;
-  $("#cats").innerHTML = CONFIG.categories.map(c => `<button class="chip ${c === cat ? "on" : ""}" data-c="${c}">${c}</button>`).join("");
-  save();
-  renderGrid();
-}
-
-function renderGrid() {
-  let list = PRODUCTS.filter(p => (cat === "All" || p.cat.includes(cat)) && p.name.toLowerCase().includes(query));
-  if (sort === "low") list.sort((a, b) => a.price - b.price);
-  if (sort === "high") list.sort((a, b) => b.price - a.price);
-  $("#grid").innerHTML = list.map(p => `
-    <div class="card" data-id="${p.id}">
-      ${p.oldPrice ? '<span class="sale">SALE</span>' : ""}
-      ${pic(p)}
-      <div class="info"><div class="name">${p.name}</div>
-      <b>${money(p.price)}</b>${p.oldPrice ? `<span class="old">${money(p.oldPrice)}</span>` : ""}</div>
-    </div>`).join("");
-  $("#empty").classList.toggle("hidden", list.length > 0);
-}
-
-function openProduct(id) {
-  const p = find(id);
-  let size = p.sizes[0], color = p.colors[0], qty = 1;
-  const draw = () => {
-    $("#prodSheet").innerHTML = `
-      <button class="close" id="pClose">&times;</button>
-      ${pic(p)}
-      <h2 style="margin-top:12px">${p.name}</h2>
-      <p><b>${money(p.price)}</b>${p.oldPrice ? `<span class="old">${money(p.oldPrice)}</span>` : ""}</p>
-      <p style="margin:8px 0">${p.desc}</p>
-      <b>Size</b><div class="opt">${p.sizes.map(s => `<button data-s="${s}" class="${s === size ? "on" : ""}">${s}</button>`).join("")}</div>
-      <b>Color</b><div class="opt">${p.colors.map(c => `<button data-col="${c}" class="${c === color ? "on" : ""}">${c}</button>`).join("")}</div>
-      <b>Quantity</b><div class="qty"><button id="qm">-</button><span>${qty}</span><button id="qp">+</button></div>
-      <button class="btn" style="width:100%;margin-bottom:8px" id="addBtn">Add to cart</button>
-      ${p.payLink ? `<a class="btn dark" style="width:100%;text-align:center" href="${p.payLink}">Buy now</a>` : ""}
-      <p style="font-size:12px;color:#666;margin-top:10px">Size guide: check the FAQ section below.</p>`;
-    $("#pClose").onclick = () => $("#prodOverlay").classList.remove("open");
-    $("#qm").onclick = () => { if (qty > 1) qty--; draw(); };
-    $("#qp").onclick = () => { qty++; draw(); };
-    $("#prodSheet").querySelectorAll("[data-s]").forEach(b => b.onclick = () => { size = b.dataset.s; draw(); });
-    $("#prodSheet").querySelectorAll("[data-col]").forEach(b => b.onclick = () => { color = b.dataset.col; draw(); });
-    $("#addBtn").onclick = () => {
-      const ex = cart.find(c => c.id === id && c.size === size && c.color === color);
-      if (ex) ex.qty += qty; else cart.push({id, size, color, qty});
-      save(); renderCart();
-      $("#prodOverlay").classList.remove("open");
-      openCart();
-    };
-  };
-  draw();
-  $("#prodOverlay").classList.add("open");
-}
-
-function renderCart() {
-  if (!cart.length) {
-    $("#items").innerHTML = "<p>Your cart is empty.</p>";
-    $("#subtotal").textContent = money(0);
-    return;
+if(db)onAuthStateChanged(auth,async u=>{
+  user=u;role="customer";
+  if(u){
+    const r=doc(db,"users",u.uid),s=await getDoc(r);
+    if(s.exists())role=s.data().role||"customer";
+    else await setDoc(r,{email:u.email,role:"customer"});
   }
-  $("#items").innerHTML = cart.map((c, i) => {
-    const p = find(c.id);
-    return `<div class="line">
-      <div class="em">${p.image ? `<img src="${p.image}" alt="">` : p.emoji}</div>
-      <div class="mid"><b>${p.name}</b><br>${c.size} / ${c.color}<br>${money(p.price)}</div>
-      <div class="qty" style="margin:0">
-        <button data-m="${i}">-</button><span>${c.qty}</span><button data-p="${i}">+</button>
-      </div>
-      <button data-r="${i}" style="background:none;font-size:20px">&#128465;</button>
-    </div>`;
-  }).join("");
-  $("#subtotal").textContent = money(cart.reduce((a, c) => a + find(c.id).price * c.qty, 0));
+  await loadShop();await loadOrders();await loadTeam();render();
+});
+
+function head(){
+  const n=cart.reduce((a,c)=>a+c.qty,0);
+  return `<header><div class="row sp"><span class="logo">${E(CONFIG.brand)}</span><div class="row">
+  <button data-a="go" data-v="shop">Shop</button>
+  <button data-a="go" data-v="cart">Cart (${n})</button>
+  <button data-a="go" data-v="${user?"orders":"login"}">${user?"My orders":"Login"}</button>
+  ${isStaff()?`<button data-a="go" data-v="admin">Dashboard</button>`:""}
+  ${user?`<button data-a="out">Logout</button>`:""}</div></div></header>`;
 }
 
-function openCart() { $("#drawer").classList.add("open"); $("#cartOverlay").classList.add("open"); }
-function closeCart() { $("#drawer").classList.remove("open"); $("#cartOverlay").classList.remove("open"); }
+function gridHTML(){
+  const list=products.filter(p=>(cat=="All"||p.cat==cat)&&(p.name||"").toLowerCase().includes(q));
+  if(!list.length)return "<p>No products yet.</p>";
+  return list.map(p=>`<div class="card">${p.image?`<img src="${safe(p.image)}" loading="lazy" alt="">`:`<div class="ph">👕</div>`}
+  <div class="i"><b>${E(p.name)}</b><br>${M(p.price)}
+  <select id="s${p.id}">${(p.sizes||"One size").split(",").map(s=>`<option>${E(s.trim())}</option>`).join("")}</select>
+  <button class="p" style="width:100%" data-a="add" data-id="${p.id}">Add to cart</button></div></div>`).join("");
+}
+function shop(){
+  const cats=["All",...new Set(products.map(p=>p.cat).filter(Boolean))];
+  return `<div class="hero"><h1>${E(CONFIG.tagline)}</h1></div><main>
+  <input id="q" placeholder="Search clothes..." value="${E(q)}">
+  <div class="row" style="margin-bottom:12px">${cats.map(c=>`<button class="chip ${c==cat?"on":""}" data-a="cat" data-c="${E(c)}">${E(c)}</button>`).join("")}</div>
+  <div class="grid" id="grid">${gridHTML()}</div></main>`;
+}
 
-$("#menuBtn").onclick = () => $("#nav").classList.toggle("open");
-$("#nav").onclick = () => $("#nav").classList.remove("open");
-$("#cartBtn").onclick = () => { renderCart(); openCart(); };
-$("#closeCart").onclick = closeCart;
-$("#cartOverlay").onclick = closeCart;
-$("#prodOverlay").onclick = e => { if (e.target.id === "prodOverlay") e.target.classList.remove("open"); };
-$("#search").oninput = e => { query = e.target.value.toLowerCase(); renderGrid(); };
-$("#sort").onchange = e => { sort = e.target.value; renderGrid(); };
-$("#cats").onclick = e => { if (e.target.dataset.c) { cat = e.target.dataset.c; setup(); } };
-$("#grid").onclick = e => { const c = e.target.closest(".card"); if (c) openProduct(+c.dataset.id); };
+function payInfo(m){
+  const s=settings;
+  if(m=="card")return `Pay by card here: <a href="${safe(s.cardLink)}" target="_blank">secure card payment</a>, then paste the receipt ID below.`;
+  if(m=="paypal")return `Pay with <a href="${safe(s.paypalLink)}" target="_blank">PayPal</a>, then paste the transaction ID below.`;
+  if(m=="easypaisa")return `Send the total to EasyPaisa: <b>${E(s.easypaisa||"not set yet")}</b>, then paste the transaction ID below.`;
+  if(m=="bank")return `Transfer to: <b>${E(s.bank||"not set yet")}</b>, then paste the reference below.`;
+  return "Pay the courier when your order arrives.";
+}
+function checkout(){
+  return `<div class="box"><h3>Delivery</h3><input id="cn" placeholder="Full name"><input id="cp" placeholder="Phone"><textarea id="ca" placeholder="Address"></textarea>
+  <h3>Payment</h3><select id="pm"><option value="card">Debit / credit card</option><option value="paypal">PayPal</option><option value="easypaisa">EasyPaisa</option><option value="bank">Bank transfer</option><option value="cod">Cash on delivery</option></select>
+  <p id="pi" style="margin-bottom:8px"></p><input id="cr" placeholder="Payment reference / transaction ID">
+  <button class="p" style="width:100%" data-a="order">Place order</button></div>`;
+}
+function cartView(){
+  if(!cart.length)return `<main><p>Your cart is empty.</p></main>`;
+  const t=cart.reduce((a,c)=>a+c.price*c.qty,0);
+  return `<main><h2>Cart</h2>${cart.map((c,i)=>`<div class="box row sp"><span>${E(c.name)} (${E(c.size)}) x${c.qty}<br>${M(c.price*c.qty)}</span>
+  <span><button data-a="qm" data-i="${i}">-</button> <button data-a="qp" data-i="${i}">+</button> <button data-a="rm" data-i="${i}">✕</button></span></div>`).join("")}
+  <h3 style="margin:10px 0">Total: ${M(t)}</h3>
+  ${user?checkout():`<p class="note">Login first to place your order.</p><button class="p" data-a="go" data-v="login">Login or sign up</button>`}</main>`;
+}
+function login(){
+  return `<main style="max-width:400px"><h2>Login or sign up</h2><input id="em" type="email" placeholder="Email"><input id="pw" type="password" placeholder="Password (6+ characters)">
+  <button class="p" style="width:100%" data-a="in">Login</button><br><br><button style="width:100%" data-a="up">Create account</button></main>`;
+}
+function orderBox(o,admin){
+  return `<div class="box"><div class="row sp"><b>${M(o.total)}</b><span class="tag">${E(o.status)}</span></div>
+  ${o.items.map(i=>`${E(i.name)} (${E(i.size)}) x${i.qty}`).join("<br>")}<br>
+  <small>${new Date(o.created).toLocaleString()} | ${E(o.method)} | ref: ${E(o.ref||"-")}</small>
+  ${admin?`<br><small>${E(o.name)} | ${E(o.phone)} | ${E(o.address)} | ${E(o.email)}</small><div class="row" style="margin-top:8px">
+  <button data-a="st" data-id="${o.id}" data-s="paid">Paid</button><button data-a="st" data-id="${o.id}" data-s="shipped">Shipped</button><button data-a="st" data-id="${o.id}" data-s="cancelled">Cancel</button></div>`:""}</div>`;
+}
+function ordersView(){return `<main><h2>My orders</h2>${orders.map(o=>orderBox(o,false)).join("")||"<p>No orders yet.</p>"}</main>`}
 
-$("#items").onclick = e => {
-  const d = e.target.dataset;
-  if (d.m !== undefined && cart[d.m].qty > 1) cart[d.m].qty--;
-  else if (d.p !== undefined) cart[d.p].qty++;
-  else if (d.r !== undefined) cart.splice(d.r, 1);
-  else return;
-  save(); renderCart();
-};
+function stats(){
+  const n=new Date(),day=new Date(n.getFullYear(),n.getMonth(),n.getDate()).getTime();
+  const ranges={"Today":day,"Last 7 days":day-6*864e5,"This month":new Date(n.getFullYear(),n.getMonth(),1).getTime(),"This year":new Date(n.getFullYear(),0,1).getTime()};
+  const ok=orders.filter(o=>o.status=="paid"||o.status=="shipped");
+  return Object.entries(ranges).map(([k,t])=>{
+    const l=ok.filter(o=>o.created>=t),rev=l.reduce((a,o)=>a+o.total,0);
+    const cost=l.reduce((a,o)=>a+o.items.reduce((b,i)=>b+i.cost*i.qty,0),0);
+    return `<div class="box"><b>${k}</b><div class="row" style="margin-top:8px"><div class="stat">Earned<b>${M(rev)}</b></div><div class="stat">Profit<b>${M(rev-cost)}</b></div><div class="stat">Sales<b>${l.length}</b></div></div></div>`;
+  }).join("")+`<p>Waiting for payment check: ${orders.filter(o=>o.status=="pending").length}</p>`;
+}
+function admin(){
+  const tabs=["stats","products","orders"].concat(role=="owner"?["settings","team"]:[]);
+  let body="";
+  if(tab=="stats")body=stats();
+  if(tab=="products")body=`<div class="box"><h3>Add clothing</h3><input id="pn" placeholder="Name"><input id="pr" type="number" placeholder="Selling price"><input id="pc" type="number" placeholder="Your cost (for profit)"><input id="pt" placeholder="Category, e.g. Men"><input id="pg" placeholder="Image link (https://...)"><input id="ps" placeholder="Sizes, e.g. S,M,L,XL"><button class="p" data-a="addp">Add product</button></div>`
+    +products.map(p=>`<div class="box row sp"><span>${E(p.name)} - ${M(p.price)}</span><button data-a="delp" data-id="${p.id}">Delete</button></div>`).join("");
+  if(tab=="orders")body=orders.map(o=>orderBox(o,true)).join("")||"<p>No orders yet.</p>";
+  if(tab=="settings")body=`<div class="box"><h3>Payment details</h3><input id="s1" placeholder="Card payment link (Stripe)" value="${E(settings.cardLink)}"><input id="s2" placeholder="PayPal link" value="${E(settings.paypalLink)}"><input id="s3" placeholder="EasyPaisa number and name" value="${E(settings.easypaisa)}"><input id="s4" placeholder="Bank name, account number, title" value="${E(settings.bank)}"><button class="p" data-a="save">Save</button></div>`;
+  if(tab=="team")body=`<div class="box"><h3>Give or remove a role</h3><input id="te" type="email" placeholder="Their account email"><select id="tr"><option value="admin">Admin (manage products and orders)</option><option value="customer">Normal shopper</option></select><button class="p" data-a="role">Save role</button></div>`
+    +team.map(u=>`<div class="box">${E(u.email)} <span class="tag">${E(u.role)}</span></div>`).join("");
+  return `<main><div class="row" style="margin-bottom:12px">${tabs.map(t=>`<button class="chip ${t==tab?"on":""}" data-a="tab" data-t="${t}">${t}</button>`).join("")}</div>${body}</main>`;
+}
 
-$("#checkout").onclick = () => {
-  if (!cart.length) return;
-  // one item with a stripe link goes straight to stripe
-  if (cart.length === 1 && find(cart[0].id).payLink) {
-    location.href = find(cart[0].id).payLink;
-    return;
-  }
-  // otherwise send the order to you
-  let total = 0;
-  const lines = cart.map(c => {
-    const p = find(c.id);
-    total += p.price * c.qty;
-    return `${c.qty}x ${p.name} (${c.size}, ${c.color}) - ${money(p.price * c.qty)}`;
-  });
-  const msg = `New order:\n${lines.join("\n")}\nTotal: ${money(total)}`;
-  if (CONFIG.whatsapp) location.href = `https://wa.me/${CONFIG.whatsapp}?text=${encodeURIComponent(msg)}`;
-  else if (CONFIG.email) location.href = `mailto:${CONFIG.email}?subject=New order&body=${encodeURIComponent(msg)}`;
-  else alert("Add your whatsapp or email in the CONFIG at the top of the code first.");
-};
+function render(){
+  let body;
+  if(!db)body=`<main><p class="note">Paste your Firebase keys into CONFIG at the top of the code first.</p></main>`;
+  else if(view=="cart")body=cartView();
+  else if(view=="login")body=login();
+  else if(view=="orders"&&user)body=ordersView();
+  else if(view=="admin"&&isStaff())body=admin();
+  else body=shop();
+  $("#app").innerHTML=head()+body;
+  const pm=$("#pm");if(pm)$("#pi").innerHTML=payInfo(pm.value);
+}
 
-$("#newsBtn").onclick = () => {
-  const m = $("#newsMail").value;
-  if (!m) return;
-  if (CONFIG.email) location.href = `mailto:${CONFIG.email}?subject=Newsletter signup&body=${encodeURIComponent(m)}`;
-  else alert("Thanks! Add your email in the CONFIG to receive signups.");
-};
+async function placeOrder(){
+  const f=id=>$("#"+id).value.trim(),m=f("pm");
+  if(!f("cn")||!f("cp")||!f("ca"))return alert("Fill in your name, phone and address");
+  if(m!="cod"&&!f("cr"))return alert("Add your payment reference");
+  await addDoc(collection(db,"orders"),{uid:user.uid,email:user.email,name:f("cn"),phone:f("cp"),address:f("ca"),method:m,ref:f("cr"),
+    items:cart.map(c=>({id:c.id,name:c.name,size:c.size,price:c.price,cost:c.cost||0,qty:c.qty})),
+    total:cart.reduce((a,c)=>a+c.price*c.qty,0),status:"pending",created:Date.now()});
+  cart=[];saveCart();await loadOrders();view="orders";render();
+}
 
-setup();
-renderCart();
+document.addEventListener("click",async e=>{
+  const b=e.target.closest("[data-a]");if(!b)return;
+  const a=b.dataset.a,d=b.dataset;
+  try{
+    if(a=="go"){view=d.v;if(view=="admin"){await loadOrders();await loadTeam()}render()}
+    else if(a=="cat"){cat=d.c;render()}
+    else if(a=="add"){
+      const p=products.find(x=>x.id==d.id),size=$("#s"+d.id).value;
+      const ex=cart.find(c=>c.id==p.id&&c.size==size);
+      if(ex)ex.qty++;else cart.push({id:p.id,name:p.name,price:p.price,cost:p.cost||0,size,qty:1});
+      saveCart();render();
+    }
+    else if(a=="qm"){if(cart[d.i].qty>1)cart[d.i].qty--;saveCart();render()}
+    else if(a=="qp"){cart[d.i].qty++;saveCart();render()}
+    else if(a=="rm"){cart.splice(d.i,1);saveCart();render()}
+    else if(a=="in"){view="shop";await signInWithEmailAndPassword(auth,$("#em").value,$("#pw").value)}
+    else if(a=="up"){view="shop";await createUserWithEmailAndPassword(auth,$("#em").value,$("#pw").value)}
+    else if(a=="out"){view="shop";await signOut(auth)}
+    else if(a=="order")await placeOrder();
+    else if(a=="tab"){tab=d.t;render()}
+    else if(a=="addp"){
+      await addDoc(collection(db,"products"),{name:$("#pn").value.trim(),price:+$("#pr").value,cost:+$("#pc").value||0,cat:$("#pt").value.trim(),image:$("#pg").value.trim(),sizes:$("#ps").value.trim()||"One size"});
+      await loadShop();render();
+    }
+    else if(a=="delp"){if(confirm("Delete this product?")){await deleteDoc(doc(db,"products",d.id));await loadShop();render()}}
+    else if(a=="st"){await updateDoc(doc(db,"orders",d.id),{status:d.s});await loadOrders();render()}
+    else if(a=="save"){
+      await setDoc(doc(db,"settings","main"),{cardLink:$("#s1").value.trim(),paypalLink:$("#s2").value.trim(),easypaisa:$("#s3").value.trim(),bank:$("#s4").value.trim()});
+      await loadShop();alert("Saved");
+    }
+    else if(a=="role"){
+      const u=team.find(x=>x.email==$("#te").value.trim());
+      if(!u)return alert("No account with that email. They need to sign up first.");
+      if(u.id==user.uid)return alert("You can't change your own role here.");
+      await updateDoc(doc(db,"users",u.id),{role:$("#tr").value});
+      await loadTeam();render();
+    }
+  }catch(err){alert(err.message)}
+});
+document.addEventListener("change",e=>{if(e.target.id=="pm")$("#pi").innerHTML=payInfo(e.target.value)});
+document.addEventListener("input",e=>{if(e.target.id=="q"){q=e.target.value.toLowerCase();$("#grid").innerHTML=gridHTML()}});
+render();
 </script>
-</body>
-    </html>
+</body></html>
