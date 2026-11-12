@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>My Store</title>
+<style>
+:root{--main:#111;--accent:#d4a017;--bg:#fff;--text:#111;--soft:#f4f4f4}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:system-ui,sans-serif;color:var(--text);background:var(--bg);line-height:1.4}
+button{font:inherit;cursor:pointer;border:0}
+a{color:inherit}
+header{position:sticky;top:0;z-index:20;background:var(--main);color:#fff;padding:10px 14px}
+.top{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.brand{font-weight:800;font-size:20px;letter-spacing:1px}
+.icon{background:none;color:#fff;font-size:22px;position:relative;padding:4px 8px}
+.badge{position:absolute;top:-4px;right:-2px;background:var(--accent);color:#000;font-size:11px;font-weight:700;border-radius:10px;padding:1px 6px}
+#search{width:100%;margin-top:10px;padding:10px 14px;border-radius:20px;border:0;font-size:15px}
+nav{display:none;background:var(--main);padding:6px 14px 12px}
+nav.open{display:block}
+nav a{display:block;color:#fff;text-decoration:none;padding:8px 0;border-bottom:1px solid #333}
+.hero{background:linear-gradient(135deg,var(--main),#333);color:#fff;text-align:center;padding:60px 20px}
+.hero h1{font-size:30px;margin-bottom:8px}
+.hero p{opacity:.85;margin-bottom:18px}
+.btn{background:var(--accent);color:#000;font-weight:700;padding:12px 22px;border-radius:8px;display:inline-block;text-decoration:none}
+.btn.dark{background:var(--main);color:#fff}
+section{padding:26px 14px;max-width:1100px;margin:auto}
+h2{margin-bottom:14px;font-size:22px}
+.bar{display:flex;gap:8px;overflow-x:auto;padding-bottom:10px;align-items:center}
+.chip{background:var(--soft);padding:8px 14px;border-radius:20px;white-space:nowrap;font-size:14px}
+.chip.on{background:var(--main);color:#fff}
+select{padding:8px;border-radius:8px;border:1px solid #ccc;font:inherit}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:10px}
+@media(min-width:700px){.grid{grid-template-columns:repeat(4,1fr)}}
+.card{background:var(--soft);border-radius:10px;overflow:hidden;cursor:pointer;position:relative}
+.card img,.ph{width:100%;aspect-ratio:1;object-fit:cover;display:flex;align-items:center;justify-content:center;font-size:56px;background:#e6e6e6}
+.card .info{padding:10px}
+.card .name{font-size:14px;font-weight:600}
+.old{text-decoration:line-through;color:#888;font-size:13px;margin-left:6px}
+.sale{position:absolute;top:8px;left:8px;background:#d32f2f;color:#fff;font-size:11px;font-weight:700;padding:3px 8px;border-radius:6px}
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.55);display:none;z-index:40;align-items:flex-end;justify-content:center}
+.overlay.open{display:flex}
+.sheet{background:#fff;width:100%;max-width:520px;max-height:90vh;overflow:auto;border-radius:16px 16px 0 0;padding:18px;position:relative}
+.close{position:absolute;top:10px;right:14px;background:none;font-size:26px}
+.opt{display:flex;gap:8px;flex-wrap:wrap;margin:6px 0 14px}
+.opt button{padding:8px 14px;border-radius:8px;background:var(--soft);border:2px solid transparent}
+.opt button.on{border-color:var(--main);background:#fff;font-weight:700}
+.qty{display:flex;align-items:center;gap:12px;margin:6px 0 14px}
+.qty button{width:34px;height:34px;border-radius:50%;background:var(--soft);font-size:18px}
+.drawer{position:fixed;top:0;right:0;height:100%;width:100%;max-width:400px;background:#fff;z-index:50;transform:translateX(100%);transition:.25s;display:flex;flex-direction:column}
+.drawer.open{transform:none}
+.drawer .head{padding:16px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #eee}
+.drawer .items{flex:1;overflow:auto;padding:12px 16px}
+.drawer .foot{padding:16px;border-top:1px solid #eee}
+.line{display:flex;gap:10px;align-items:center;margin-bottom:14px}
+.line .em{font-size:30px;background:var(--soft);border-radius:8px;width:52px;height:52px;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.line .em img{width:100%;height:100%;object-fit:cover}
+.line .mid{flex:1;font-size:14px}
+.review{background:var(--soft);padding:14px;border-radius:10px;margin-bottom:10px}
+details{background:var(--soft);padding:12px 14px;border-radius:10px;margin-bottom:8px}
+summary{font-weight:600;cursor:pointer}
+details p{margin-top:8px;font-size:14px}
+.news{display:flex;gap:8px}
+.news input{flex:1;padding:12px;border-radius:8px;border:1px solid #ccc;font:inherit}
+footer{background:var(--main);color:#fff;text-align:center;padding:26px 14px;font-size:14px}
+footer a{margin:0 8px}
+.hidden{display:none}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="top">
+    <button class="icon" id="menuBtn" aria-label="Menu">&#9776;</button>
+    <div class="brand" id="brandName"></div>
+    <button class="icon" id="cartBtn" aria-label="Cart">&#128722;<span class="badge" id="count">0</span></button>
+  </div>
+  <input id="search" type="search" placeholder="Search clothes...">
+</header>
+<nav id="nav">
+  <a href="#shop">Shop</a>
+  <a href="#reviews">Reviews</a>
+  <a href="#faq">FAQ and Shipping</a>
+  <a href="#contact">Contact</a>
+</nav>
+
+<div class="hero">
+  <h1 id="heroTitle"></h1>
+  <p id="heroText"></p>
+  <a class="btn" href="#shop">Shop Now</a>
+</div>
+
+<section id="shop">
+  <h2>Shop</h2>
+  <div class="bar" id="cats"></div>
+  <div class="bar">
+    <select id="sort">
+      <option value="">Sort by</option>
+      <option value="low">Price: low to high</option>
+      <option value="high">Price: high to low</option>
+    </select>
+  </div>
+  <div class="grid" id="grid"></div>
+  <p id="empty" class="hidden">Nothing found, try another search.</p>
+</section>
+
+<section id="reviews">
+  <h2>What customers say</h2>
+  <div class="review">&#11088;&#11088;&#11088;&#11088;&#11088;<br>Great quality and fast delivery. Fits perfectly!<br><b>Alex</b></div>
+  <div class="review">&#11088;&#11088;&#11088;&#11088;&#11088;<br>Looks even better in person. Will order again.<br><b>Sam</b></div>
+  <div class="review">&#11088;&#11088;&#11088;&#11088;<br>Nice material and good packaging.<br><b>Jordan</b></div>
+</section>
+
+<section id="faq">
+  <h2>FAQ, shipping and returns</h2>
+  <details><summary>How long does shipping take?</summary><p>Usually 3 to 7 business days. Edit this text to match your real shipping times.</p></details>
+  <details><summary>What is your return policy?</summary><p>Returns accepted within 14 days if unworn with tags. Edit this to match your policy.</p></details>
+  <details><summary>How do I pick my size?</summary><p>Check the size guide: S (chest 86-91cm), M (92-97cm), L (98-103cm), XL (104-109cm). Edit with your real sizes.</p></details>
+  <details><summary>How can I pay?</summary><p>Card payments go through Stripe secure checkout.</p></details>
+</section>
+
+<section id="contact">
+  <h2>Contact and newsletter</h2>
+  <p style="margin-bottom:12px">Questions? Message us anytime.</p>
+  <div class="news">
+    <input id="newsMail" type="email" placeholder="Your email for deals">
+    <button class="btn dark" id="newsBtn">Join</button>
+  </div>
+</section>
+
+<footer>
+  <div id="footBrand" style="margin-bottom:8px"></div>
+  <a id="ig" href="#">Instagram</a><a id="tt" href="#">TikTok</a>
+  <div style="margin-top:10px;opacity:.7">Privacy and terms: add your policy links here</div>
+</footer>
+
+<div class="overlay" id="prodOverlay"><div class="sheet" id="prodSheet"></div></div>
+<div class="overlay" id="cartOverlay"></div>
+<div class="drawer" id="drawer">
+  <div class="head"><b>Your cart</b><button class="close" style="position:static" id="closeCart">&times;</button></div>
+  <div class="items" id="items"></div>
+  <div class="foot">
+    <div style="display:flex;justify-content:space-between;margin-bottom:10px"><b>Subtotal</b><b id="subtotal"></b></div>
+    <button class="btn" style="width:100%" id="checkout">Checkout</button>
+  </div>
+</div>
+
+<script>
+// config: change your brand stuff here
+const CONFIG = {
+  brand: "MY BRAND",
+  tagline: "Fresh drops for your style",
+  sub: "Quality clothes. Fast shipping. Easy returns.",
+  main: "#111111",
+  accent: "#d4a017",
+  currency: "$",
+  whatsapp: "",            // your number with country code, no plus, e.g. 15551234567
+  email: "",               // your email for orders and newsletter
+  instagram: "#",
+  tiktok: "#",
+  categories: ["All", "Men", "Women", "Kids", "New", "Sale"]
+};
+
+// config: your products. payLink = your Stripe Payment Link for that item
+const PRODUCTS = [
+  {id:1, name:"Classic Hoodie", price:39.99, oldPrice:0, cat:["Men","New"], emoji:"🧥", image:"", sizes:["S","M","L","XL"], colors:["Black","Grey"], desc:"Soft heavy hoodie, warm and comfy.", payLink:""},
+  {id:2, name:"Oversized Tee", price:19.99, oldPrice:29.99, cat:["Men","Women","Sale"], emoji:"👕", image:"", sizes:["S","M","L"], colors:["White","Black"], desc:"Loose fit cotton tee.", payLink:""},
+  {id:3, name:"Slim Jeans", price:49.99, oldPrice:0, cat:["Women"], emoji:"👖", image:"", sizes:["S","M","L"], colors:["Blue"], desc:"Stretchy slim fit jeans.", payLink:""},
+  {id:4, name:"Kids Joggers", price:24.99, oldPrice:0, cat:["Kids","New"], emoji:"🩳", image:"", sizes:["4Y","6Y","8Y"], colors:["Grey","Navy"], desc:"Easy joggers for active kids.", payLink:""}
+];
+
+// below here is the shop logic, you can leave it alone
+const $ = s => document.querySelector(s);
+let cat = "All", query = "", sort = "";
+let cart = [];
+try { cart = JSON.parse(localStorage.getItem("cart")) || []; } catch (e) {}
+
+const money = n => CONFIG.currency + n.toFixed(2);
+const find = id => PRODUCTS.find(p => p.id === id);
+
+function save() {
+  try { localStorage.setItem("cart", JSON.stringify(cart)); } catch (e) {}
+  $("#count").textContent = cart.reduce((a, c) => a + c.qty, 0);
+}
+
+function pic(p) {
+  return p.image ? `<img src="${p.image}" alt="${p.name}" loading="lazy">` : `<div class="ph">${p.emoji || "👕"}</div>`;
+}
+
+function setup() {
+  document.documentElement.style.setProperty("--main", CONFIG.main);
+  document.documentElement.style.setProperty("--accent", CONFIG.accent);
+  document.title = CONFIG.brand;
+  $("#brandName").textContent = CONFIG.brand;
+  $("#footBrand").textContent = CONFIG.brand;
+  $("#heroTitle").textContent = CONFIG.tagline;
+  $("#heroText").textContent = CONFIG.sub;
+  $("#ig").href = CONFIG.instagram;
+  $("#tt").href = CONFIG.tiktok;
+  $("#cats").innerHTML = CONFIG.categories.map(c => `<button class="chip ${c === cat ? "on" : ""}" data-c="${c}">${c}</button>`).join("");
+  save();
+  renderGrid();
+}
+
+function renderGrid() {
+  let list = PRODUCTS.filter(p => (cat === "All" || p.cat.includes(cat)) && p.name.toLowerCase().includes(query));
+  if (sort === "low") list.sort((a, b) => a.price - b.price);
+  if (sort === "high") list.sort((a, b) => b.price - a.price);
+  $("#grid").innerHTML = list.map(p => `
+    <div class="card" data-id="${p.id}">
+      ${p.oldPrice ? '<span class="sale">SALE</span>' : ""}
+      ${pic(p)}
+      <div class="info"><div class="name">${p.name}</div>
+      <b>${money(p.price)}</b>${p.oldPrice ? `<span class="old">${money(p.oldPrice)}</span>` : ""}</div>
+    </div>`).join("");
+  $("#empty").classList.toggle("hidden", list.length > 0);
+}
+
+function openProduct(id) {
+  const p = find(id);
+  let size = p.sizes[0], color = p.colors[0], qty = 1;
+  const draw = () => {
+    $("#prodSheet").innerHTML = `
+      <button class="close" id="pClose">&times;</button>
+      ${pic(p)}
+      <h2 style="margin-top:12px">${p.name}</h2>
+      <p><b>${money(p.price)}</b>${p.oldPrice ? `<span class="old">${money(p.oldPrice)}</span>` : ""}</p>
+      <p style="margin:8px 0">${p.desc}</p>
+      <b>Size</b><div class="opt">${p.sizes.map(s => `<button data-s="${s}" class="${s === size ? "on" : ""}">${s}</button>`).join("")}</div>
+      <b>Color</b><div class="opt">${p.colors.map(c => `<button data-col="${c}" class="${c === color ? "on" : ""}">${c}</button>`).join("")}</div>
+      <b>Quantity</b><div class="qty"><button id="qm">-</button><span>${qty}</span><button id="qp">+</button></div>
+      <button class="btn" style="width:100%;margin-bottom:8px" id="addBtn">Add to cart</button>
+      ${p.payLink ? `<a class="btn dark" style="width:100%;text-align:center" href="${p.payLink}">Buy now</a>` : ""}
+      <p style="font-size:12px;color:#666;margin-top:10px">Size guide: check the FAQ section below.</p>`;
+    $("#pClose").onclick = () => $("#prodOverlay").classList.remove("open");
+    $("#qm").onclick = () => { if (qty > 1) qty--; draw(); };
+    $("#qp").onclick = () => { qty++; draw(); };
+    $("#prodSheet").querySelectorAll("[data-s]").forEach(b => b.onclick = () => { size = b.dataset.s; draw(); });
+    $("#prodSheet").querySelectorAll("[data-col]").forEach(b => b.onclick = () => { color = b.dataset.col; draw(); });
+    $("#addBtn").onclick = () => {
+      const ex = cart.find(c => c.id === id && c.size === size && c.color === color);
+      if (ex) ex.qty += qty; else cart.push({id, size, color, qty});
+      save(); renderCart();
+      $("#prodOverlay").classList.remove("open");
+      openCart();
+    };
+  };
+  draw();
+  $("#prodOverlay").classList.add("open");
+}
+
+function renderCart() {
+  if (!cart.length) {
+    $("#items").innerHTML = "<p>Your cart is empty.</p>";
+    $("#subtotal").textContent = money(0);
+    return;
+  }
+  $("#items").innerHTML = cart.map((c, i) => {
+    const p = find(c.id);
+    return `<div class="line">
+      <div class="em">${p.image ? `<img src="${p.image}" alt="">` : p.emoji}</div>
+      <div class="mid"><b>${p.name}</b><br>${c.size} / ${c.color}<br>${money(p.price)}</div>
+      <div class="qty" style="margin:0">
+        <button data-m="${i}">-</button><span>${c.qty}</span><button data-p="${i}">+</button>
+      </div>
+      <button data-r="${i}" style="background:none;font-size:20px">&#128465;</button>
+    </div>`;
+  }).join("");
+  $("#subtotal").textContent = money(cart.reduce((a, c) => a + find(c.id).price * c.qty, 0));
+}
+
+function openCart() { $("#drawer").classList.add("open"); $("#cartOverlay").classList.add("open"); }
+function closeCart() { $("#drawer").classList.remove("open"); $("#cartOverlay").classList.remove("open"); }
+
+$("#menuBtn").onclick = () => $("#nav").classList.toggle("open");
+$("#nav").onclick = () => $("#nav").classList.remove("open");
+$("#cartBtn").onclick = () => { renderCart(); openCart(); };
+$("#closeCart").onclick = closeCart;
+$("#cartOverlay").onclick = closeCart;
+$("#prodOverlay").onclick = e => { if (e.target.id === "prodOverlay") e.target.classList.remove("open"); };
+$("#search").oninput = e => { query = e.target.value.toLowerCase(); renderGrid(); };
+$("#sort").onchange = e => { sort = e.target.value; renderGrid(); };
+$("#cats").onclick = e => { if (e.target.dataset.c) { cat = e.target.dataset.c; setup(); } };
+$("#grid").onclick = e => { const c = e.target.closest(".card"); if (c) openProduct(+c.dataset.id); };
+
+$("#items").onclick = e => {
+  const d = e.target.dataset;
+  if (d.m !== undefined && cart[d.m].qty > 1) cart[d.m].qty--;
+  else if (d.p !== undefined) cart[d.p].qty++;
+  else if (d.r !== undefined) cart.splice(d.r, 1);
+  else return;
+  save(); renderCart();
+};
+
+$("#checkout").onclick = () => {
+  if (!cart.length) return;
+  // one item with a stripe link goes straight to stripe
+  if (cart.length === 1 && find(cart[0].id).payLink) {
+    location.href = find(cart[0].id).payLink;
+    return;
+  }
+  // otherwise send the order to you
+  let total = 0;
+  const lines = cart.map(c => {
+    const p = find(c.id);
+    total += p.price * c.qty;
+    return `${c.qty}x ${p.name} (${c.size}, ${c.color}) - ${money(p.price * c.qty)}`;
+  });
+  const msg = `New order:\n${lines.join("\n")}\nTotal: ${money(total)}`;
+  if (CONFIG.whatsapp) location.href = `https://wa.me/${CONFIG.whatsapp}?text=${encodeURIComponent(msg)}`;
+  else if (CONFIG.email) location.href = `mailto:${CONFIG.email}?subject=New order&body=${encodeURIComponent(msg)}`;
+  else alert("Add your whatsapp or email in the CONFIG at the top of the code first.");
+};
+
+$("#newsBtn").onclick = () => {
+  const m = $("#newsMail").value;
+  if (!m) return;
+  if (CONFIG.email) location.href = `mailto:${CONFIG.email}?subject=Newsletter signup&body=${encodeURIComponent(m)}`;
+  else alert("Thanks! Add your email in the CONFIG to receive signups.");
+};
+
+setup();
+renderCart();
+</script>
+</body>
+    </html>
